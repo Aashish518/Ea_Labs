@@ -1,12 +1,42 @@
+import { useState } from "react";
+import Button from "../components/ui/common/Button";
+import Input from "../components/ui/common/Input";
+import Image from "../components/ui/common/Image";
+
 const ContactUs = () => {
+    const [formData, setFormData] = useState({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        pincode: "",
+    });
+
+    // Handle input change
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    // Handle form submit
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Form Submitted:", formData);
+        alert("Form data logged in console!");
+        // Optional: reset form
+        // setFormData({ name:"", company:"", email:"", phone:"", address:"", city:"", pincode:"" });
+    };
+
     return (
         <div className="flex items-center justify-center bg-gray-50 px-4 py-10">
             <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg shadow-lg p-6">
 
-                {/* Right Image (Mobile First) */}
+                {/* Right Image */}
                 <div className="flex items-center justify-center order-1 md:order-2">
                     <div className="w-full h-64 md:h-full bg-gray-100 rounded-lg flex items-center justify-center">
-                        <img
+                        <Image
                             src="https://via.placeholder.com/400x300"
                             alt="Contact Illustration"
                             className="rounded-lg object-cover"
@@ -21,58 +51,77 @@ const ContactUs = () => {
                         Our single goal: fast, accurate, affordable diagnostics for every patient.
                     </p>
 
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                                type="text"
+                            <Input
+                                label="Your Name"
+                                name="name"
                                 placeholder="Your Name"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
                             />
-                            <input
-                                type="text"
+                            <Input
+                                label="Company Name"
+                                name="company"
                                 placeholder="Company Name"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                value={formData.company}
+                                onChange={handleChange}
                             />
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
+                            <Input
+                                label="Email ID"
                                 type="email"
+                                name="email"
                                 placeholder="Email ID"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
                             />
-                            <input
+                            <Input
+                                label="Phone Number"
                                 type="tel"
+                                name="phone"
                                 placeholder="Phone Number"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                required
                             />
                         </div>
 
-                        <input
-                            type="text"
+                        <Input
+                            label="Address"
+                            name="address"
                             placeholder="Address Line 1"
-                            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                            value={formData.address}
+                            onChange={handleChange}
                         />
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                                type="text"
+                            <Input
+                                label="City"
+                                name="city"
                                 placeholder="City"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                value={formData.city}
+                                onChange={handleChange}
                             />
-                            <input
-                                type="text"
+                            <Input
+                                label="Pincode"
+                                name="pincode"
                                 placeholder="Pincode"
-                                className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                value={formData.pincode}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        <button
+                        <Button
                             type="submit"
                             className="w-full bg-red-600 text-white font-semibold py-2 rounded-lg hover:bg-red-700 transition"
                         >
                             Submit Now
-                        </button>
+                        </Button>
                     </form>
                 </div>
             </div>

@@ -1,6 +1,3 @@
-import Icon from "../../Icon";
-
-
 // components/Header/SocialIcons.jsx
 const SocialIcons = () => (
     <div className="flex space-x-2">

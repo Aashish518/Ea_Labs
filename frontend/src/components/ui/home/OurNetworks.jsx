@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Icon from '../../Icon';
+import Image from '../common/Image';
+import Button from '../common/Button';
 
 // --- Data for different network locations ---
 const locations = [
@@ -124,23 +126,23 @@ export default function OurNetworks() {
 
                     {/* Right Side: Map with Dynamic Pins */}
                     <div className="w-full md:w-2/3 relative">
-                        <img
+                        <Image
                             src="https://i.imgur.com/K2rfDEs.png" // Using a transparent map image
                             alt="Map of our networks across India"
                             className="w-full h-auto rounded-lg object-contain"
                         />
                         {/* Mapping over locations to create a pin for each */}
                         {locations.map((loc) => (
-                            <button
+                            <Button
                                 key={loc.id}
                                 onClick={() => setSelectedLocation(loc)}
                                 style={{ top: loc.coords.top, left: loc.coords.left }}
                                 className="absolute transform -translate-x-1/2 -translate-y-1/2 p-1"
-                                aria-label={`Show details for ${loc.name}`}
+                                arialabel={`Show details for ${loc.name}`}
                             >
                                 <Icon path={locationPath} className="h-6 w-6 text-red-500 flex-shrink-0" />
                                 <span className="absolute top-full left-1/2 -translate-x-1/2 mt-1 text-xs font-semibold text-indigo-900 whitespace-nowrap">{loc.name}</span>
-                            </button>
+                            </Button>
                         ))}
                     </div>
                 </div>

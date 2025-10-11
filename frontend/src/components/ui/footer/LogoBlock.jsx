@@ -1,13 +1,14 @@
 import logoImg from '../../../assets/img/EA-Lab_Logo_Web2.png';
+import Image from '../common/Image';
 
 const LogoBlock = () => (
     <div>
         <div className="flex items-center space-x-2 mb-4">
-            <img
-                        src={logoImg}
-                        alt="EA Lab Logo"
-                        className="h-10 w-auto"
-                    />
+            <Image
+                src={logoImg}
+                alt="EA Lab Logo"
+                className="h-10 w-auto"
+            />
         </div>
         <p className="text-gray-400 text-sm">
             108, Westface, Hebatpur Rd, <br />

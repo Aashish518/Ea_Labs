@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Icon from "../../Icon";
+import Button from "../common/Button";
 
 const Hero = () => {
     const [current, setCurrent] = useState(0);
@@ -36,21 +37,21 @@ const Hero = () => {
                 ))}
 
                 {/* Buttons inside container */}
-                <button
+                <Button
                     onClick={prevSlide}
                     className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition duration-300 backdrop-blur-sm"
                     aria-label="Previous slide"
                 >
                     <Icon path="M15 19l-7-7 7-7" className="w-6 h-6" />
-                </button>
+                </Button>
 
-                <button
+                <Button
                     onClick={nextSlide}
                     className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition duration-300 backdrop-blur-sm"
                     aria-label="Next slide"
                 >
                     <Icon path="M9 5l7 7-7 7" className="w-6 h-6" />
-                </button>
+                </Button>
             </div>
         </section>
     );

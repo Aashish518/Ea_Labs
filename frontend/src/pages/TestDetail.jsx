@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Button from '../components/ui/common/Button';
 
 const testsData = [
     {
@@ -67,7 +68,7 @@ const TestDetail = () => {
         <div className="bg-white">
             <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="mb-6">
-                    <button
+                    <Button
                         onClick={() => navigate("/", { state: { scrollToHealthPackages: true } })}
                         className="flex items-center text-black hover:text-gray-900 font-medium"
                     >
@@ -82,7 +83,7 @@ const TestDetail = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"></path>
                         </svg>
                         Back
-                    </button>
+                    </Button>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 bg-white p-8 rounded-xl shadow-lg">
@@ -91,10 +92,10 @@ const TestDetail = () => {
 
                         <div className="border-b border-gray-200 mb-6">
                             <nav className="-mb-px flex overflow-x-auto space-x-8" aria-label="Tabs">
-                                <button onClick={() => setActiveTab('overview')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'overview' ? 'border-[#AA1626] text-[#AA1626]' : 'border-transparent text-black hover:text-black hover:border-gray-300'}`}>Overview</button>
-                                <button onClick={() => setActiveTab('components')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'components' ? 'border-[#AA1626] text-[#AA1626]' : 'border-transparent text-black hover:text-black hover:border-gray-300'}`}>Test Components</button>
-                                <button onClick={() => setActiveTab('prerequisites')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'prerequisites' ? 'border-[#AA1626] text-[#AA1626]' : 'border-transparent text-black hover:text-black hover:border-gray-300'}`}>Prerequisites</button>
-                                <button onClick={() => setActiveTab('faqs')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'faqs' ? 'border-[#AA1626] text-[#AA1626]' : 'border-transparent text-black hover:text-black hover:border-gray-300'}`}>FAQs</button>
+                                <Button onClick={() => setActiveTab('overview')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'overview' ? 'border-[#AA1626] text-[#AA1626]' : 'border-transparent text-black hover:text-black hover:border-gray-300'}`}>Overview</Button>
+                                <Button onClick={() => setActiveTab('components')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'components' ? 'border-[#AA1626] text-[#AA1626]' : 'border-transparent text-black hover:text-black hover:border-gray-300'}`}>Test Components</Button>
+                                <Button onClick={() => setActiveTab('prerequisites')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'prerequisites' ? 'border-[#AA1626] text-[#AA1626]' : 'border-transparent text-black hover:text-black hover:border-gray-300'}`}>Prerequisites</Button>
+                                <Button onClick={() => setActiveTab('faqs')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'faqs' ? 'border-[#AA1626] text-[#AA1626]' : 'border-transparent text-black hover:text-black hover:border-gray-300'}`}>FAQs</Button>
                             </nav>
                         </div>
 
@@ -126,11 +127,11 @@ const TestDetail = () => {
                                 <span className="text-3xl font-bold text-red-600">{test.price}</span>
                             </div>
                             <p className="text-sm text-black mb-6">Includes all taxes and fees.</p>
-                            <button
+                            <Button
                                 onClick={handleClick}
                                 className="w-full bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
                                 Contact Us
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>

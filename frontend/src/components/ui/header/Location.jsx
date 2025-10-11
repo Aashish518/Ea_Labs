@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Icon from "../../Icon";
+import Button from "../common/Button"
 
 const Location = () => {
     const [open, setOpen] = useState(false);
@@ -15,7 +16,7 @@ const Location = () => {
 
     return (
         <div className="relative">
-            <button
+            <Button
                 onClick={() => setOpen(!open)}
                 className="flex items-center space-x-1 px-2 py-1 rounded transition duration-200 hover:scale-105 hover:shadow-md hover:bg-gradient-to-r hover:from-pink-100 hover:to-white hover:border hover:border-[#203270] hover:rounded-md"
             >
@@ -37,7 +38,7 @@ const Location = () => {
                     className={`w-4 h-4 rounded-full bg-blue-900 text-white transform transition-transform ${open ? "rotate-180" : ""
                         }`}
                 />
-            </button>
+            </Button>
 
             <div
                 className={`absolute right-0 mt-1 w-40 bg-white border rounded shadow-md z-10 transform transition-all duration-300 ease-out origin-top ${open ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"

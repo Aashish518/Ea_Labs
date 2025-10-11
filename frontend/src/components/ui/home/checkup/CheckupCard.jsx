@@ -1,7 +1,9 @@
+import Image from "../../common/Image";
+
 const CheckupCard = ({ imageUrl, title, ageRange, gradient }) => (
     <div className="flex flex-col items-center text-center">
         <div className={`bg-gradient-to-br ${gradient} p-2 rounded-3xl shadow-lg w-full`}>
-            <img
+            <Image
                 src={imageUrl}
                 alt={title}
                 className="w-full h-auto rounded-2xl object-cover aspect-square"

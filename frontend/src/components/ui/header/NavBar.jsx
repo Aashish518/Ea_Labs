@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom"; // import Link and useLocation
 import SocialIcons from "./SocialIcons "; // Make sure path is correct
+import Button from "../common/Button";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,8 +12,6 @@ const NavBar = () => {
         { name: "Home", href: "/" },
         { name: "Test Menu", href: "/test-menu" },
         { name: "Contact Us", href: "/contactus" },
-        { name: "Recognition", href: "#" },
-        { name: "Our Blogs", href: "#" },
     ];
 
     return (
@@ -35,12 +34,12 @@ const NavBar = () => {
 
             {/* Mobile Menu Button */}
             <div className="sm:hidden flex justify-end py-2">
-                <button
+                <Button
                     onClick={() => setIsOpen(!isOpen)}
                     className="text-gray-700 focus:outline-none"
                 >
                     {isOpen ? <X size={28} /> : <Menu size={28} />}
-                </button>
+                </Button>
             </div>
 
             {/* Mobile Menu */}
@@ -49,12 +48,12 @@ const NavBar = () => {
                     }`}
             >
                 {/* Close Button */}
-                <button
+                <Button
                     onClick={() => setIsOpen(false)}
                     className="absolute top-6 left-6 text-gray-700 focus:outline-none z-50"
                 >
                     <X size={28} />
-                </button>
+                </Button>
 
                 <div className="flex flex-col items-center justify-between h-full text-black pt-16">
                     {/* Navigation Links */}

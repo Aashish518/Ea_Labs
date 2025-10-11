@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+body {
+    font-family: 'Urbanist', ui-sans-serif, system-ui !important;
+}
+
+/* TestMenu Model */
+@keyframes slide-down {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-down {
+    animation: slide-down 1s ease-out forwards;
+}
+
+/* Navbar ans Location */
+@keyframes slide-in {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-in {
+    animation: slide-in 0.3s ease-out forwards;
+}

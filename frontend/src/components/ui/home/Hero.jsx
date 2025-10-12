@@ -1,42 +1,65 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Icon from "../../Icon";
 import Button from "../common/Button";
+import { getImages } from "../../../api/apis/sliderimageapi";
 
 const Hero = () => {
     const [current, setCurrent] = useState(0);
 
-    const slides = [
-        { bgImage: "https://placehold.co/1600x800/0D9488/FFFFFF?text=Abstract+Background+1" },
-        { bgImage: "https://placehold.co/1600x800/0F766E/FFFFFF?text=Abstract+Background+2" },
-        { bgImage: "https://placehold.co/1600x800/047857/FFFFFF?text=Abstract+Background+3" },
-    ];
+    const { data: images = [], isLoading, isError } = useQuery({
+        queryKey: ["slides"],
+        queryFn: getImages,
+    });
 
-    // Auto-slide
+    // Prepend backend URL to relative paths
+    const backendURL = "http://localhost:7000";
+
+    const slides = images.map((img) => {
+        const desktop = img.desktopScreenMedia
+            ?.filter(m => m.isVisible)
+            .map(m => ({ ...m, url: backendURL + m.url })) || [];
+        const mobile = img.mobileScreenMedia
+            ?.filter(m => m.isVisible)
+            .map(m => ({ ...m, url: backendURL + m.url })) || [];
+        return { desktop, mobile };
+    }).filter(slide => slide.desktop.length > 0 || slide.mobile.length > 0);
+
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrent((prev) => (prev + 1) % slides.length);
+            setCurrent(prev => (prev + 1) % slides.length);
         }, 5000);
         return () => clearInterval(interval);
     }, [slides.length]);
 
-    const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
-    const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+    const nextSlide = () => setCurrent(prev => (prev + 1) % slides.length);
+    const prevSlide = () => setCurrent(prev => (prev - 1 + slides.length) % slides.length);
+
+    if (isLoading) return <div className="h-[500px] flex items-center justify-center">Loading...</div>;
+    if (isError) return <div className="h-[500px] flex items-center justify-center text-red-500">Error loading slides</div>;
 
     return (
         <section className="relative h-[500px] sm:h-[450px] md:h-[500px] overflow-hidden">
             <div className="relative max-w-7xl mx-auto h-full">
-                {/* Slides */}
                 {slides.map((slide, index) => (
-                    <img
-                        key={index}
-                        src={slide.bgImage}
-                        alt={`Background ${index + 1}`}
-                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === current ? "opacity-100" : "opacity-0"
-                            }`}
-                    />
+                    <div key={index}>
+                        {slide.desktop.length > 0 && (
+                            <img
+                                src={slide.desktop[0].url}
+                                alt={`Background ${index + 1}`}
+                                className={`hidden md:block absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === current ? "opacity-100" : "opacity-0"}`}
+                            />
+                        )}
+                        {slide.mobile.length > 0 && (
+                            <img
+                                src={slide.mobile[0].url}
+                                alt={`Background Mobile ${index + 1}`}
+                                className={`block md:hidden absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === current ? "opacity-100" : "opacity-0"}`}
+                            />
+                        )}
+                    </div>
                 ))}
 
-                {/* Buttons inside container */}
                 <Button
                     onClick={prevSlide}
                     className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition duration-300 backdrop-blur-sm"

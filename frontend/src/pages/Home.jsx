@@ -10,8 +10,10 @@ import QualityControlBanner from "../components/ui/home/QualityControlBanner";
 import Stats from "../components/ui/home/Stats";
 import WhyUs from "../components/ui/home/WhyUs";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useLocation as useSelectedLocation } from "../Context/LocationContext";
+import { useLocation as useRouterLocation } from "react-router-dom";
 import { useEffect } from "react";
+
 
 
 
@@ -62,10 +64,12 @@ const womensCheckups = [
         gradient: 'from-amber-400 to-orange-500',
     },
 ];
-export default function Home() {
-    const location = useLocation();
+const Home=()=> {
+    const location = useRouterLocation();
     const navigate = useNavigate();
+    const { selectedLocation, setSelectedLocation } = useSelectedLocation();
 
+    console.log(selectedLocation?.locationName,"kkkk")
     const healthPackagesRef = useRef(null);
 
     useEffect(() => {
@@ -79,7 +83,6 @@ export default function Home() {
         navigate(`/test-detail/${id}`);
     };
 
-    // Add an optional scroll function
     const scrollToHealthPackages = () => {
         healthPackagesRef.current?.scrollIntoView({ behavior: "smooth" });
     };
@@ -108,3 +111,5 @@ export default function Home() {
         </div>
     );
 }
+
+export default Home;

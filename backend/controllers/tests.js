@@ -1,4 +1,6 @@
 const Test = require("../models/test");
+const TestCategory = require("../models/testcategory");
+const Location = require("../models/location");
 
 exports.createTest = async (req, res) => {
     try {
@@ -60,3 +62,49 @@ exports.deleteTest = async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
+
+exports.getCategoriesWithTestsByLocation = async (req, res) => {
+    try {
+        const { locationName } = req.query;
+        if (!locationName) {
+            return res.status(400).json({ message: "Location name is required" });
+        }
+
+        // 1️⃣ Find location
+        const location = await Location.findOne({ locationName });
+        if (!location) {
+            return res.status(404).json({ message: "Location not found" });
+        }
+
+        // 2️⃣ Find tests that include this location
+        const tests = await Test.find({ locations: location._id })
+            .populate("category", "categoryName") // populate category name
+            .select("name description include for reportInTime price category")
+            .lean(); // convert to plain JS objects
+
+        // 3️⃣ Group tests by category
+        const grouped = {};
+        tests.forEach((test) => {
+            const catId = test.category._id.toString();
+            if (!grouped[catId]) {
+                grouped[catId] = {
+                    categoryId: test.category._id,
+                    categoryName: test.category.categoryName,
+                    tests: [],
+                };
+            }
+            if (grouped[catId].tests.length < 3) { // max 3 tests per category
+                grouped[catId].tests.push(test);
+            }
+        });
+
+        const result = Object.values(grouped);
+
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+
+

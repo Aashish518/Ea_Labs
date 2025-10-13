@@ -70,3 +70,24 @@ exports.deleteLocation = async (req, res) => {
     }
 };
 
+exports.geocode=async (req, res) => {
+    const { lat, lon } = req.query;
+
+    if (!lat || !lon) return res.status(400).json({ message: "lat and lon required" });
+
+    try {
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch from Nominatim");
+
+        const data = await response.json();
+        const city = data.address.state_district || null;
+
+        res.json({ city });
+    } catch (err) {
+        console.error("Reverse geocoding error:", err);
+        res.status(500).json({ message: "Reverse geocoding failed" });
+    }
+};

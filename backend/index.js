@@ -16,6 +16,7 @@ const tests = require("./routers/tests");
 const visiter = require("./routers/visitor");
 const contactUs = require("./routers/contactUs");
 const location = require("./routers/location");
+const testPackageCategory = require("./routers/testpackagecategory");
 
 const cors = require("cors");
 
@@ -47,6 +48,7 @@ app.use("/api/tests", tests);
 app.use("/api/visitor", visiter);
 app.use("/api/contacts", contactUs);
 app.use("/api/location", location);
+app.use("/api/testpackagecategory", testPackageCategory)
 
 
 

@@ -5,9 +5,9 @@ const Stats = () => (
         <div className="container max-w-7xl mx-auto px-4 sm:px-6">
             {/* Header */}
             <div className="mb-10 text-left">
-                <h2 className="text-4xl font-bold mb-2 text-white">EA Labs - Trusted by Families</h2>
+                <h2 className="text-4xl font-bold mb-2 text-white">EA Labs - Setting the Standard in Diagnostics.</h2>
                 <p className="text-white max-w-2xl text-lg">
-                    Our single goal: fast, accurate, affordable diagnostics for every patient.
+                    Delivering excellence through accuracy, speed, and care because every result matters.
                 </p>
             </div>
 
@@ -15,19 +15,19 @@ const Stats = () => (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="bg-gradient-to-r from-teal-100 to-teal-200 text-teal-800 p-6 rounded-xl  flex flex-col items-start justify-center">
                     <p className="text-3xl font-bold">7,00,000+</p>
-                    <p className="mt-2 text-sm font-medium">Customers Served</p>
+                    <p className="mt-2 text-sm font-medium">Patients Served</p>
                 </div>
                 <div className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 p-6 rounded-xl  flex flex-col items-start justify-center">
                     <p className="text-3xl font-bold">16,000+</p>
-                    <p className="mt-2 text-sm font-medium">Tests Processed Every Day</p>
+                    <p className="mt-2 text-sm font-medium">Tests Processed Daily</p>
                 </div>
                 <div className="bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 p-6 rounded-xl  flex flex-col items-start justify-center">
                     <p className="text-3xl font-bold">15+</p>
-                    <p className="mt-2 text-sm font-medium">Cities Covered</p>
+                    <p className="mt-2 text-sm font-medium"> Cities Covered</p>
                 </div>
                 <div className="bg-gradient-to-r from-pink-100 to-pink-200 text-pink-800 p-6 rounded-xl  flex flex-col items-start justify-center">
                     <p className="text-3xl font-bold">98.5%+</p>
-                    <p className="mt-2 text-sm font-medium">On-time Report Delivery</p>
+                    <p className="mt-2 text-sm font-medium">On-Time Report Delivery</p>
                 </div>
             </div>
 

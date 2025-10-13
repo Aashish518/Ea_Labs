@@ -4,6 +4,7 @@ import MainLayout from "../components/layout/MainLayout";
 import SliderImages from "../pages/SliderImages";
 import TestsManagement from "../pages/ManageTests";
 import ManageContacts from "../pages/ManageContacts";
+import ManageTestPackages from "../pages/ManageTestPackages";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
             {
                 path: "/managecontacts",
                 element:<ManageContacts/>
+            },
+            {
+                path: "managetestpackage",
+                element: <ManageTestPackages />
             }
         ],
     },

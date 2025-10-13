@@ -16,27 +16,27 @@ const PhoneIcon = "M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.5
 const features = [
     {
         icon: <Icon path={QualityIcon} className="w-16 h-16 text-white" />
-,
+        ,
         title: 'Quality',
-        description: 'Follows stringent multi-level QC and EQA programs.',
+        description: 'Stringent multi-level QC and EQA programs ensure every result is accurate and dependable.',
         gradient: 'from-purple-500 to-indigo-600',
     },
     {
         icon: <Icon path={TimeIcon} className="w-16 h-16 text-white" />,
         title: 'On-Time Services',
-        description: 'Reliable sample collection & report TAT—same-day on select tests.',
+        description: 'From sample collection to reporting, we’re committed to punctuality.',
         gradient: 'from-blue-500 to-teal-600',
     },
     {
         icon: <Icon path={ConvenienceIcon} className="w-16 h-16 text-white" />,
         title: 'Convenience',
-        description: 'Home collection or visit our centres—whichever suits you.',
+        description: 'Opt for home sample collection or walk into any of our centres.',
         gradient: 'from-green-500 to-emerald-600',
     },
     {
         icon: <Icon path={PhoneIcon} className="w-16 h-16 text-white" />,
         title: 'Expert Assistance',
-        description: 'On-demand result explanation and doctor-on-call (on request).',
+        description: 'Get clarity beyond the report with on-demand result explanations and doctor consultation (on request).',
         gradient: 'from-slate-500 to-gray-600',
     }
 ];
@@ -63,10 +63,9 @@ export default function WhyUs() {
             <div className="max-w-7xl mx-auto">
                 {/* Header section */}
                 <div className="text-left mb-12 max-w-2xl">
-                    <h2 className="text-4xl font-bold mb-4">Why book tests with us?</h2>
+                    <h2 className="text-4xl font-bold mb-4">Why Choose EA Labs?</h2>
                     <p className="text-lg text-gray-300">
-                        EA Labs delivers clinician-ready reports with consistent turnaround times—without compromising on quality.
-                    </p>
+                        EA Labs delivers clinician-ready reports with reliable turnaround times.                    </p>
                 </div>
 
                 {/* Grid of feature cards */}

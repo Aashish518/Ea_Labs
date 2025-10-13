@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { FlaskConical, Menu, X, Home, ClipboardList, FileText, Calendar, Images } from "lucide-react";
+import { FlaskConical, Menu, X, Home, ClipboardList, FileText, Calendar, Images, Package } from "lucide-react";
 import SidebarItem from "../SidebarItem";
 import logoImg from "../../assets/img/EA-Lab_Logo_Web.png";
 import Image from "../ui/common/Image";
@@ -10,8 +10,8 @@ const sidebarItems = [
     { icon: Home, label: "Dashboard", id: "dashboard", path: "/" },
     { icon: FlaskConical, label: "Manage Tests", id: "tests", path: "/managetests" },
     { icon: Calendar, label: "Manage Contacts", id: "managecontacts", path: "/managecontacts" },
-    { icon: Images, label: "Slider Images", id: "sliderimages", path: "/sliderimages" },
-    { icon: FileText, label: "Reports", id: "reports", path: "/reports" },
+    { icon: Images, label: " Manage SliderImages", id: "sliderimages", path: "/sliderimages" },
+    { icon: Package, label: "Manage Packagecategory", id: "managetestPackage", path: "/managetestpackage" },
 ];
 
 const MainLayout = () => {

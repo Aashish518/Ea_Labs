@@ -40,10 +40,27 @@ const Dashboard = () => {
 
     const totalContacts = contacts.length;
 
-    const today = new Date(); 
-    const todayContacts = contacts.filter(
-        (c) => c.createdAt?.slice(0, 10) === today
-    ).length;
+    const today = new Date();
+    const todayLocal = today.getFullYear() + "-" +
+        String(today.getMonth() + 1).padStart(2, "0") + "-" +
+        String(today.getDate()).padStart(2, "0");
+
+    console.log(todayLocal, "ttt");
+
+    const todayContacts =
+        contacts?.filter((c) => {
+            const createdDate = new Date(c.createdAt);
+            const createdLocal =
+                createdDate.getFullYear() + "-" +
+                String(createdDate.getMonth() + 1).padStart(2, "0") + "-" +
+                String(createdDate.getDate()).padStart(2, "0");
+            return createdLocal === todayLocal;
+        })?.length || 0;
+
+    console.log(todayContacts, "ddddd");
+
+
+
 
 
     const dayOfWeek = today.getDay();
@@ -107,7 +124,7 @@ const Dashboard = () => {
 
                 {/* Charts Row */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                    <Barchart title="Tests This Week" data={testsData} dataKey="tests" barColor="#3B82F6" />
+                    <Barchart title="contact This Week" data={testsData} dataKey="tests" barColor="#3B82F6" />
                     <Piechart title="Test Distribution" data={testTypesData} colors={COLORS} />
                 </div>
             </main>

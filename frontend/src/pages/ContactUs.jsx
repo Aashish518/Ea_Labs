@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import Button from "../components/ui/common/Button";
 import Input from "../components/ui/common/Input";
 import Image from "../components/ui/common/Image";
+import { createContact } from "../api/apis/contactus";
+import AlertBox from "../components/ui/common/AlertBox";
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -14,20 +17,47 @@ const ContactUs = () => {
         pincode: "",
     });
 
+    // 🔹 TanStack mutation setup
+    const mutation = useMutation({
+        mutationFn: createContact,
+        onSuccess: () => {
+            setFormData({
+                name: "",
+                company: "",
+                email: "",
+                phone: "",
+                address: "",
+                city: "",
+                pincode: "",
+            });
+        },
+        onError: (error) => {
+            console.error("Error:", error);
+        },
+    });
+
     // Handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Handle form submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form Submitted:", formData);
-        alert("Form data logged in console!");
-        // Optional: reset form
-        // setFormData({ name:"", company:"", email:"", phone:"", address:"", city:"", pincode:"" });
+        try {
+            const response = await mutation.mutateAsync(formData); 
+            AlertBox({
+                type: "success",
+                message: response?.message,
+            });
+        } catch (error) {
+            AlertBox({
+                type: "error",
+                message: error?.message || "Something went wrong",
+            });
+        }
     };
+
 
     return (
         <div className="flex items-center justify-center bg-gray-50 px-4 py-10">
@@ -119,8 +149,9 @@ const ContactUs = () => {
                         <Button
                             type="submit"
                             className="w-full bg-red-600 text-white font-semibold py-2 rounded-lg hover:bg-red-700 transition"
+                            disabled={mutation.isPending}
                         >
-                            Submit Now
+                            {mutation.isPending ? "Submitting..." : "Submit Now"}
                         </Button>
                     </form>
                 </div>

@@ -126,10 +126,24 @@ const TestPackageFormModal = ({ isOpen, onClose, onSubmit, editData, testsData =
     useEffect(() => {
         setName(editData?.name || "");
         setPrice(editData?.price || "");
-        setSelectedTests(editData?.tests || []);
-        setEnable(editData ? editData.enable : true); // auto-checked for new packages
+        setEnable(editData ? editData.enable : true);
         setPreview(editData?.image ? `http://localhost:7000${editData.image}` : null);
-    }, [editData]);
+
+        if (editData?.tests && Array.isArray(editData.tests)) {
+            const mappedTests = editData.tests.map((t) => {
+                if (typeof t === "string") {
+                    return testsData.find((test) => test._id === t) || { _id: t, name: "Unknown Test" };
+                } else if (t?._id) {
+                    return testsData.find((test) => test._id === t._id) || t;
+                }
+                return null;
+            }).filter(Boolean);
+            setSelectedTests(mappedTests);
+        } else {
+            setSelectedTests([]);
+        }
+    }, [editData, testsData]);
+
 
     // Filter tests when user types
     const filteredTests = testsData.filter((test) =>
@@ -162,20 +176,18 @@ const TestPackageFormModal = ({ isOpen, onClose, onSubmit, editData, testsData =
         formData.append("price", price);
         formData.append("enable", enable);
 
-        // Send full test objects as JSON strings
-        selectedTests.forEach((test) => {
-            formData.append("tests", JSON.stringify(test));
+        selectedTests.forEach((test, index) => {
+            formData.append(`tests[${index}]`, test._id);
         });
 
         if (image) formData.append("image", image);
 
         onSubmit(formData);
 
-        // Reset form
         setName("");
         setPrice("");
         setSelectedTests([]);
-        setEnable(true); // new package auto-checked
+        setEnable(true); 
         setImage(null);
         setPreview(null);
         setSearchTerm("");

@@ -230,6 +230,7 @@ const ManageTestPackages = () => {
                     onAddClick={handleAddPackage}
                     onEditCategory={handleEditPackage}
                     handleDeleteCategory={handleDeletePackage}
+                    testsData={tests}
                 />
 
                 {/* Modal */}

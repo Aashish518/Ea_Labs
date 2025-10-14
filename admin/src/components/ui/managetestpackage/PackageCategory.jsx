@@ -1,9 +1,31 @@
+import { useState } from "react";
 import { Plus } from "lucide-react";
 import Card from "../../layout/Card";
 import Button from "../common/Button";
 import Table from "../../Table";
+import CategoryDetailsModal from "./CategoryDetailsModal "; 
 
-const PackageCategory = ({ heading,tableheader,categories, handleDeleteCategory, onAddClick, onEditCategory }) => {
+const PackageCategory = ({
+    testsData,
+    heading,
+    tableheader,
+    categories,
+    handleDeleteCategory,
+    onAddClick,
+    onEditCategory,
+}) => {
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Row click opens modal
+    const handleRowClick = (id) => {
+        const cat = categories.find((c) => c._id === id);
+        if (cat) {
+            setSelectedCategory(cat);
+            setIsModalOpen(true);
+        }
+    };
+
     return (
         <Card className="mb-6">
             <div className="p-6 border-b border-gray-200 flex items-center justify-between">
@@ -20,10 +42,10 @@ const PackageCategory = ({ heading,tableheader,categories, handleDeleteCategory,
             <Table
                 headers={tableheader}
                 data={categories.map((cat) => ({
-                    name:cat.name,
+                    name: cat.name,
                     image: cat.image ? `http://localhost:7000${cat.image}` : null,
                     price: cat.price,
-                    enable: cat.enable?"yes":"no",
+                    enable: cat.enable ? "Yes" : "No",
                     tests: cat.tests?.length || 0,
                     _id: cat._id,
                 }))}
@@ -32,7 +54,16 @@ const PackageCategory = ({ heading,tableheader,categories, handleDeleteCategory,
                     if (cat && onEditCategory) onEditCategory(cat);
                 }}
                 onDelete={(id) => handleDeleteCategory(id)}
+                onRowClick={handleRowClick} // added row click
                 emptyMessage="No categories found. Create your first category!"
+            />
+
+            {/* Modal to show full category + tests details */}
+            <CategoryDetailsModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                category={selectedCategory}
+                testsData={testsData} // pass full test data here
             />
         </Card>
     );

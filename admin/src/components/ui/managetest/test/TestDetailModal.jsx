@@ -1,137 +1,122 @@
 import Modal from "../../../layout/Modal";
+import { X } from "lucide-react";
 
 const TestDetailModal = ({ isOpen, onClose, test }) => {
     if (!test) return null;
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title="Test Details">
-            <div className="space-y-4 text-gray-700">
+        <Modal isOpen={isOpen} onClose={onClose} title="Test Details" size="xl">
+            <div className="p-8 space-y-8">
 
-                {/* Name */}
                 <div>
-                    <strong className="block text-sm text-gray-500">Name</strong>
-                    <p>{test.name}</p>
+                    <h1 className="text-3xl font-light text-gray-900 mb-2">{test.name}</h1>
+                    {test.category && (
+                        <p className="text-sm text-gray-500">{test.category.categoryName}</p>
+                    )}
                 </div>
 
-                {/* Description */}
+                <div className="flex gap-8 text-sm border-t border-b border-gray-200 py-4">
+                    <div>
+                        <span className="text-gray-500">Price</span>
+                        <p className="text-xl font-light mt-1">₹{test.price}</p>
+                    </div>
+                    {test.reportInTime && (
+                        <div>
+                            <span className="text-gray-500">Report</span>
+                            <p className="text-xl font-light mt-1">{test.reportInTime} hrs</p>
+                        </div>
+                    )}
+                </div>
+
                 {test.description && (
                     <div>
-                        <strong className="block text-sm text-gray-500">Description</strong>
-                        <p>{test.description}</p>
+                        <p className="text-gray-700 leading-relaxed">{test.description}</p>
                     </div>
                 )}
 
-                {/* Include */}
-                {test.include?.length > 0 && (
-                    <div>
-                        <strong className="block text-sm text-gray-500">Includes</strong>
-                        <ul className="list-disc pl-5">
-                            {test.include.map((item, idx) => (
-                                <li key={idx}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                {/* For */}
-                {test.for?.length > 0 && (
-                    <div>
-                        <strong className="block text-sm text-gray-500">For</strong>
-                        <ul className="list-disc pl-5">
-                            {test.for.map((item, idx) => (
-                                <li key={idx}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                {/* Report In Time */}
-                {test.reportInTime && (
-                    <div>
-                        <strong className="block text-sm text-gray-500">Report In Time</strong>
-                        <p>{test.reportInTime} hrs</p>
-                    </div>
-                )}
-
-                {/* Overview */}
                 {test.overview && (
                     <div>
-                        <strong className="block text-sm text-gray-500">Overview</strong>
-                        <p>{test.overview}</p>
+                        <p className="text-sm text-gray-500 mb-2">Overview</p>
+                        <p className="text-gray-700 leading-relaxed">{test.overview}</p>
                     </div>
                 )}
 
-                {/* Test Components */}
+                {test.include?.length > 0 && (
+                    <div>
+                        <p className="text-sm text-gray-500 mb-3">Includes</p>
+                        <div className="space-y-2">
+                            {test.include.map((item, idx) => (
+                                <p key={idx} className="text-gray-700 text-sm">• {item}</p>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {test.for?.length > 0 && (
+                    <div>
+                        <p className="text-sm text-gray-500 mb-3">For</p>
+                        <div className="space-y-2">
+                            {test.for.map((item, idx) => (
+                                <p key={idx} className="text-gray-700 text-sm">• {item}</p>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 {test.testComponent?.length > 0 && (
                     <div>
-                        <strong className="block text-sm text-gray-500">Test Components</strong>
-                        <ul className="list-disc pl-5">
+                        <p className="text-sm text-gray-500 mb-3">Components</p>
+                        <div className="space-y-2">
                             {test.testComponent.map((item, idx) => (
-                                <li key={idx}>{item}</li>
+                                <p key={idx} className="text-gray-700 text-sm">• {item}</p>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 )}
 
-                {/* Prerequisites */}
                 {test.prerequisites?.length > 0 && (
                     <div>
-                        <strong className="block text-sm text-gray-500">Prerequisites</strong>
-                        <ul className="list-disc pl-5">
+                        <p className="text-sm text-gray-500 mb-3">Prerequisites</p>
+                        <div className="space-y-2">
                             {test.prerequisites.map((item, idx) => (
-                                <li key={idx}>{item}</li>
+                                <p key={idx} className="text-gray-700 text-sm">• {item}</p>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 )}
 
-                {/* FAQs */}
                 {test.faqs?.length > 0 && (
                     <div>
-                        <strong className="block text-sm text-gray-500">FAQs</strong>
-                        <ul className="list-disc pl-5">
+                        <p className="text-sm text-gray-500 mb-4">Questions</p>
+                        <div className="space-y-6">
                             {test.faqs.map((faq, idx) => (
-                                <li key={idx}>
-                                    <p><strong>Q:</strong> {faq.question}</p>
-                                    <p><strong>A:</strong> {faq.answer}</p>
-                                </li>
+                                <div key={idx}>
+                                    <p className="text-gray-900 mb-2">{faq.question}</p>
+                                    <p className="text-gray-600 text-sm">{faq.answer}</p>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 )}
 
-                {/* Price */}
-                <div>
-                    <strong className="block text-sm text-gray-500">Price</strong>
-                    <p>₹ {test.price}</p>
-                </div>
-
-                {/* Category */}
-                {test.category && (
-                    <div>
-                        <strong className="block text-sm text-gray-500">Category</strong>
-                        <p>{test.category.categoryName}</p>
-                    </div>
-                )}
-
-                {/* Locations */}
                 {test.locations?.length > 0 && (
                     <div>
-                        <strong className="block text-sm text-gray-500">Locations</strong>
-                        <ul className="list-disc pl-5">
+                        <p className="text-sm text-gray-500 mb-3">Locations</p>
+                        <div className="space-y-1">
                             {test.locations.map((loc, idx) => (
-                                <li key={idx}>{loc.locationName}</li>
+                                <p key={idx} className="text-gray-700 text-sm">{loc.locationName}</p>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 )}
 
-                {/* Created At */}
-                <div>
-                    <strong className="block text-sm text-gray-500">Created At</strong>
-                    <p>{new Date(test.createdAt).toLocaleString()}</p>
+                <div className="text-xs text-gray-400 pt-4">
+                    {new Date(test.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}
                 </div>
-
             </div>
         </Modal>
     );

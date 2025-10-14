@@ -8,7 +8,7 @@ const Table = ({ headers, data, onEdit, onDelete, onRowClick, emptyMessage }) =>
     return /\.(jpeg|jpg|png|gif|webp)$/i.test(value);
   };
 
-  return (
+  return (  
     <div className="overflow-x-auto">
       <table className="w-full">
         <thead className="bg-gray-50 border-b border-gray-200">

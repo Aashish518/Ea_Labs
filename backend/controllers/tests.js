@@ -1,6 +1,8 @@
 const Test = require("../models/test");
 const TestCategory = require("../models/testcategory");
 const Location = require("../models/location");
+const TestPackage = require("../models/testpackagecategory");
+
 
 exports.createTest = async (req, res) => {
     try {
@@ -54,10 +56,17 @@ exports.updateTest = async (req, res) => {
 exports.deleteTest = async (req, res) => {
     try {
         const test = await Test.findByIdAndDelete(req.params.id);
+
         if (!test) {
             return res.status(404).json({ message: "Test not found" });
         }
-        res.status(200).json({ message: "Test deleted successfully" });
+
+        await TestPackage.updateMany(
+            { tests: req.params.id },
+            { $pull: { tests: req.params.id } }
+        );
+
+        res.status(200).json({ message: "Test deleted successfully and removed from related packages" });
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
     }

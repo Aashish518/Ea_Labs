@@ -5,6 +5,7 @@ import SliderImages from "../pages/SliderImages";
 import TestsManagement from "../pages/ManageTests";
 import ManageContacts from "../pages/ManageContacts";
 import ManageTestPackages from "../pages/ManageTestPackages";
+import TestMenu from "../pages/TestMenu";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: "managetestpackage",
                 element: <ManageTestPackages />
+            },
+            {
+                path: "testmenu",
+                element: <TestMenu />
             }
         ],
     },

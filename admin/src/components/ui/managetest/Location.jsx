@@ -17,7 +17,6 @@ const Location = ({ locations, handleDeleteLocation, onAddClick }) => {
                 </Button>
             </div>
 
-            {console.log(locations,"lllll")}
             <Table
                 headers={["Location Name"]}
                 data={locations.map((loc) => ({

@@ -22,26 +22,39 @@ const PackageModal = ({ pkg, onClose }) => {
                     ×
                 </Button>
 
-                <h3 className="text-2xl font-bold mb-6 text-gray-800 pr-8">{pkg.name}</h3>
+                <h3 className="text-2xl font-bold mb-6 text-gray-800">{pkg.name}</h3>
 
                 <div className="mb-6 text-gray-700 space-y-3 bg-gray-50 p-4 rounded-lg">
-                    <div className="flex">
-                        <span className="font-semibold text-gray-800 min-w-32">Sample Type:</span>
+                    <div className="flex justify-between">
+                        <span className="font-semibold text-gray-800">Price:</span>
+                        <span>{pkg.price}</span>
+                    </div>
+                    <div className="flex justify-between">
+                        <span className="font-semibold text-gray-800">Sample Type:</span>
                         <span>{pkg.sampleType}</span>
                     </div>
-                    <div className="flex">
-                        <span className="font-semibold text-gray-800 min-w-32">Sample Volume:</span>
+                    <div className="flex justify-between">
+                        <span className="font-semibold text-gray-800">Sample Volume:</span>
                         <span>{pkg.sampleVolume}</span>
                     </div>
-                    <div className="flex">
-                        <span className="font-semibold text-gray-800 min-w-32">Test Method:</span>
+                    <div className="flex justify-between">
+                        <span className="font-semibold text-gray-800">Test Method:</span>
                         <span>{pkg.testMethod}</span>
                     </div>
-                </div>
-
-                <div className="text-gray-700 leading-relaxed">
-                    <h4 className="font-semibold text-gray-800 mb-2">Details:</h4>
-                    <p>{pkg.details}</p>
+                    <div className="flex justify-between">
+                        <span className="font-semibold text-gray-800">Special Instructions:</span>
+                        <span>{pkg.specialInstructions || "-"}</span>
+                    </div>
+                    <div className="flex justify-between">
+                        <span className="font-semibold text-gray-800">Turnaround Time:</span>
+                        <span>{pkg.turnaroundTime || "-"}</span>
+                    </div>
+                    {pkg.details && (
+                        <div className="mt-3">
+                            <h4 className="font-semibold text-gray-800 mb-1">Details:</h4>
+                            <p>{pkg.details}</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

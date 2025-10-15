@@ -7,6 +7,7 @@ import ConfirmBox from "../components/ui/common/ConfirmBox";
 import Input from "../components/ui/common/Input"
 import StatCard from "../components/StartCard";
 import ContactDetailModal from "../components/ui/managecontact/ContactDetailModal";
+import Card from "../components/layout/Card";
 
 const ManageContact = () => {
     const queryClient = useQueryClient();
@@ -93,31 +94,42 @@ const ManageContact = () => {
             {/* Search and Card */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 items-end">
                 <StatCard title="Total Contacts" value={contacts.length} icon={Phone} iconcolor="text-blue-500" />
-                <div className="relative w-full">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <Input
-                        type="text"
-                        placeholder="Search by name, email or phone..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                    />
-                </div>
             </div>
 
-            {/* Contacts Table */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                <Table
-                    headers={tableHeaders}
-                    data={tableData}
-                    onDelete={(id) => handleDelete(id)}
-                    onRowClick={(id) => {
-                        handlecontactdetail(id);
-                        setIsDetailModalOpen(true);
-                    }}
-                    emptyMessage="No contacts found matching your search."
-                />
-            </div>
+            <Card>
+                <div className="p-6 border-b border-gray-200">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <h2 className="text-xl font-bold text-gray-900">Contacts</h2>
+
+                        <div className="flex flex-col md:flex-row gap-3">
+                            {/* Search input */}
+                            <div className="relative">
+                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                <Input
+                                    type="text"
+                                    placeholder="Search by name, email or phone..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-[30rem]"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Table */}
+                    <Table
+                        headers={tableHeaders}
+                        data={tableData}
+                        onDelete={(id) => handleDelete(id)}
+                        onRowClick={(id) => {
+                            handlecontactdetail(id);
+                            setIsDetailModalOpen(true);
+                        }}
+                        emptyMessage="No contacts found matching your search."
+                    />
+            </Card>
+
 
             {/*model */}
             <ContactDetailModal

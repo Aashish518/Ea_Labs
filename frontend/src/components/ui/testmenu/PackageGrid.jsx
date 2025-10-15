@@ -11,6 +11,7 @@ const PackageGrid = ({ packages, onSelect }) => {
                 >
                     <div className="p-5 flex-grow w-full">
                         <h3 className="text-xl font-bold mb-2 text-gray-800">{pkg.name}</h3>
+                        <hr className="mb-2"/>
                         <div className="mb-4 text-gray-600 text-sm space-y-1">
                             <p>
                                 <span className="font-semibold text-gray-700">Sample Type:</span>{" "}

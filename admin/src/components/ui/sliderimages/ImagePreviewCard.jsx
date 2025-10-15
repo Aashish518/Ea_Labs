@@ -4,7 +4,6 @@ import Video from '../common/Video';
 import Image from '../common/Image';
 
 const ImagePreviewCard = ({ image, onDelete, onView, onToggleVisibility, index, isNew }) => {
-    console.log(image,"imammg")
     const isVideo = image?.type === 'video';
     const visible = image?.isVisible ?? true; 
 

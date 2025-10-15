@@ -6,7 +6,6 @@ import ImageUpload from "../../common/ImageUpload";
 
 // Category Form Modal
 const CategoryFormModal = ({ isOpen, onClose, onSubmit, editData }) => {
-    console.log(editData,"edit")
     const [categoryName, setCategoryName] = useState(editData?.categoryName || "");
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(editData?.image ? `http://localhost:7000/uploads/${editData.image}` : null);

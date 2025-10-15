@@ -1,81 +1,107 @@
 import { useState } from "react";
-import CategoryTabs from "../components/ui/testmenu/CategoryTabs";
-import PackageGrid from "../components/ui/testmenu/PackageGrid";
+import { useQuery } from "@tanstack/react-query";
 import Button from "../components/ui/common/Button";
+import PackageGrid from "../components/ui/testmenu/PackageGrid";
 import PackageModal from "../components/ui/testmenu/PackageModal";
+import { getAllTestMenus } from "../api/apis/testmenu";
 
 const TestMenu = () => {
-    const categories = ["Heart", "Liver", "Vitamins", "Diabetes", "Thyroid", "Allergy"];
-    const [activeCategory, setActiveCategory] = useState("Thyroid");
-
-    const packages = Array.from({ length: 40 }).map((_, i) => ({
-        name: `Anti GBM Antibody ${i + 1}`,
-        sampleType: "Serum (Red top)",
-        sampleVolume: "1.0 mL",
-        testMethod: "Elisa",
-        details:
-            "Full details about the test, procedure, preparation, and instructions go here. This test is used to detect antibodies against the glomerular basement membrane.",
-    }));
-
+    const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    const [activeLetter, setActiveLetter] = useState("A");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 4;
-    const totalPages = Math.ceil(packages.length / itemsPerPage);
+    const itemsPerPage = 2;
+    const [selectedPkg, setSelectedPkg] = useState(null);
 
-    const paginatedPackages = packages.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["testMenus", currentPage, activeLetter],
+        queryFn: () => getAllTestMenus(currentPage, itemsPerPage, activeLetter),
+        keepPreviousData: true,
+    });
 
-    const [selectedPackage, setSelectedPackage] = useState(null);
-
-    const goToPage = (page) => {
-        if (page < 1 || page > totalPages) return;
-        setCurrentPage(page);
+    const handleLetterSelect = (letter) => {
+        setActiveLetter(letter);
+        setCurrentPage(1); 
     };
 
-    return (
-        <section className="py-16 bg-gray-50 min-h-screen">
-            <div className="mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-4xl font-bold text-left mb-10 text-gray-800">
-                    Test By Alphabets
-                </h2>
+    const goToPage = (page) => {
+        const totalPages = data?.pagination?.totalPages || 1;
+        const validPage = Math.max(1, Math.min(page, totalPages));
+        setCurrentPage(validPage);
+    };
 
-                {/* Categories */}
-                <CategoryTabs
-                    categories={categories}
-                    activeCategory={activeCategory}
-                    onSelect={setActiveCategory}
-                />
+    const totalPages = data?.pagination?.totalPages || 1;
+
+    return (
+        <section className="py-8 bg-gray-50">
+            <div className="mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="text-4xl font-bold mb-10 text-gray-800">Test Menus</h2>
+
+                {/* Alphabet Filter */}
+                <div className="flex gap-2 mb-3 md:mb-5 overflow-x-auto scrollbar-hide">
+                    {alphabets.map((letter) => (
+                        <Button
+                            key={letter}
+                            onClick={() => handleLetterSelect(letter)}
+                            className={`px-4 py-2 rounded-lg font-medium transition-all ${activeLetter === letter
+                                ? "bg-[#AA1626] text-white"
+                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                }`}
+                        >
+                            {letter}
+                        </Button>
+                    ))}
+                </div>
+
+                <hr className="mb-5"/>
 
                 {/* Package Grid */}
-                <PackageGrid packages={paginatedPackages} onSelect={setSelectedPackage} />
+                {isLoading ? (
+                    <p className="text-center text-indigo-700">Loading...</p>
+                ) : isError ? (
+                        <p className="text-center text-gray-800">
+                            No tests found for "{activeLetter}".
+                        </p>
+                ) : data?.data.length > 0 ? (
+                    <PackageGrid
+                        packages={data.data}
+                        onSelect={(pkg) => setSelectedPkg(pkg)}
+                    />
+                ) : (
+                    <p className="text-center text-gray-500">
+                        No tests found for "{activeLetter}".
+                    </p>
+                )}
 
                 {/* Pagination */}
-                <div className="flex justify-center items-center gap-3 mt-8">
-                    <Button
-                        onClick={() => goToPage(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className="px-5 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-                    >
-                        Prev
-                    </Button>
+                {totalPages > 1 && (
+                    <div className="flex justify-center items-center gap-3">
+                        <Button
+                            onClick={() => goToPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            className="px-5 rounded-lg font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                        >
+                            Prev
+                        </Button>
 
-                    <span className="px-4 py-2 text-gray-600 font-medium text-sm">
-                        {currentPage} of {totalPages}
-                    </span>
+                        <span className="px-4 text-gray-600 font-medium text-sm">
+                            {currentPage} of {totalPages}
+                        </span>
 
-                    <Button
-                        onClick={() => goToPage(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                        className="px-5 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-                    >
-                        Next
-                    </Button>
-                </div>
+                        <Button
+                            onClick={() => goToPage(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className="px-5 rounded-lg font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                        >
+                            Next
+                        </Button>
+                    </div>
+                )}
             </div>
 
             {/* Modal */}
-            <PackageModal pkg={selectedPackage} onClose={() => setSelectedPackage(null)} />
+            {selectedPkg && (
+                <PackageModal pkg={selectedPkg} onClose={() => setSelectedPkg(null)} />
+            )}
         </section>
     );
 };

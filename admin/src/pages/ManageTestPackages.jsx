@@ -23,7 +23,6 @@
 //         queryFn: getAllTestPackages,
 //     });
 
-//     console.log(testPackagesData,"ppp")
 
 //     const menPackages = testPackagesData?.[0]?.men || [];
 //     const womenPackages = testPackagesData?.[0]?.women || [];
@@ -150,7 +149,6 @@ const ManageTestPackages = () => {
         });
 
     const testPackages = testPackagesData || [];
-    console.log(testPackages,"nnnn")
 
     // ✅ Mutations
     const addMutation = useMutation({
@@ -206,13 +204,6 @@ const ManageTestPackages = () => {
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">Manage Test Packages</h1>
                         <p className="text-gray-600">Add, edit, and manage all available test packages</p>
                     </div>
-                    <Button
-                        onClick={handleAddPackage}
-                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
-                    >
-                        <PlusCircle className="w-5 h-5" />
-                        Add Package
-                    </Button>
                 </div>
 
                 {/* Stats */}

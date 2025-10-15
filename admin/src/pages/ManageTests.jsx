@@ -54,8 +54,10 @@ const TestsManagement = () => {
     return (
         <div className="min-h-screen bg-white p-4 sm:p-6">
             <div className="max-w-7xl mx-auto">
-                <h1 className="text-3xl font-bold mb-4">Tests Management</h1>
-
+                <h1 className="text-3xl font-bold">Tests Management</h1>
+                <p className="text-gray-600 mb-6 mt-1">
+                    View and manage all test records, pricing, and details efficiently.
+                </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <StatCard title="Total Locations" value={locations.length} icon={MapPin} iconcolor="text-green-500" />
                     <StatCard title="Total Categories" value={categories.length} icon={FolderOpen} iconcolor="text-blue-500" />

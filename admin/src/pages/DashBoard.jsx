@@ -45,7 +45,6 @@ const Dashboard = () => {
         String(today.getMonth() + 1).padStart(2, "0") + "-" +
         String(today.getDate()).padStart(2, "0");
 
-    console.log(todayLocal, "ttt");
 
     const todayContacts =
         contacts?.filter((c) => {
@@ -57,7 +56,6 @@ const Dashboard = () => {
             return createdLocal === todayLocal;
         })?.length || 0;
 
-    console.log(todayContacts, "ddddd");
 
 
 

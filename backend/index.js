@@ -17,6 +17,7 @@ const visiter = require("./routers/visitor");
 const contactUs = require("./routers/contactUs");
 const location = require("./routers/location");
 const testPackageCategory = require("./routers/testpackagecategory");
+const testMenu = require("./routers/testmenu");
 
 const cors = require("cors");
 
@@ -48,11 +49,12 @@ app.use("/api/tests", tests);
 app.use("/api/visitor", visiter);
 app.use("/api/contacts", contactUs);
 app.use("/api/location", location);
-app.use("/api/testpackagecategory", testPackageCategory)
+app.use("/api/testpackagecategory", testPackageCategory);
+app.use("/api/testmenu", testMenu);
 
 
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT} `)
+    console.log(`Server running on port ${PORT} `)
 });
 

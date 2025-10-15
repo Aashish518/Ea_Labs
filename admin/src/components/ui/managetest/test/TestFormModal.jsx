@@ -165,7 +165,6 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                         Available Locations <span className="text-red-500">*</span>
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
-                        {console.log(locations,"nnnn")}
                         {Array.isArray(locations) && locations.length > 0 ? (
                             locations.map((loc) => (
                                 <label key={loc._id} className="flex items-center gap-2">

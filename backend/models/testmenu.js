@@ -9,7 +9,6 @@ const testMenuSchema = new Schema(
         },
         sampleType: {
             type: String,
-            required: true,
             trim: true,
         },
         sampleVolume: {
@@ -33,7 +32,6 @@ const testMenuSchema = new Schema(
         },
         price: {
             type: Number,
-            required: true,
             min: 0,
         },
     },

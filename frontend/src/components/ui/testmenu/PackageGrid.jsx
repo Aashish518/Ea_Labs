@@ -3,7 +3,7 @@ import Button from "../common/Button";
 
 const PackageGrid = ({ packages, onSelect }) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-15">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-15">
             {packages.map((pkg, index) => (
                 <div
                     key={index}

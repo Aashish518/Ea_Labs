@@ -45,14 +45,22 @@ const ImagePreviewCard = ({ image, onDelete, onView, onToggleVisibility, index, 
                     <Trash2 className="w-5 h-5 text-white" />
                 </Button>
 
-                <Button
+                <div
                     onClick={onToggleVisibility}
-                    className={`p-2 rounded-full transition-colors ${visible ? 'bg-green-500 hover:bg-green-600' : 'bg-gray-400 hover:bg-gray-500'}`}
-                    title={visible ? "Disable" : "Enable"}
+                    className={`flex items-center cursor-pointer w-14 h-7 rounded-full transition-colors duration-300 ${visible ? "bg-green-500" : "bg-gray-400"
+                        }`}
                 >
-                    {visible ? <EyeOff className="w-5 h-5 text-white" /> : <Eye className="w-5 h-5 text-white" />}
-                </Button>
-
+                    <div
+                        className={`flex items-center justify-center w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 ${visible ? "translate-x-7" : "translate-x-1"
+                            }`}
+                    >
+                        {visible ? (
+                            <EyeOff className="w-4 h-4 text-green-600" />
+                        ) : (
+                            <Eye className="w-4 h-4 text-gray-600" />
+                        )}
+                    </div>
+                </div>
             </div>
 
             <div className="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded z-10">

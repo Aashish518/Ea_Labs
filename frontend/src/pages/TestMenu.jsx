@@ -4,12 +4,13 @@ import Button from "../components/ui/common/Button";
 import PackageGrid from "../components/ui/testmenu/PackageGrid";
 import PackageModal from "../components/ui/testmenu/PackageModal";
 import { getAllTestMenus } from "../api/apis/testmenu";
+import Loading from "../components/Loading";
 
 const TestMenu = () => {
     const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
     const [activeLetter, setActiveLetter] = useState("A");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 2;
+    const itemsPerPage = 8;
     const [selectedPkg, setSelectedPkg] = useState(null);
 
     const { data, isLoading, isError } = useQuery({
@@ -20,7 +21,7 @@ const TestMenu = () => {
 
     const handleLetterSelect = (letter) => {
         setActiveLetter(letter);
-        setCurrentPage(1); 
+        setCurrentPage(1);
     };
 
     const goToPage = (page) => {
@@ -30,6 +31,9 @@ const TestMenu = () => {
     };
 
     const totalPages = data?.pagination?.totalPages || 1;
+
+    // ✅ Cache of letters that have results
+    const availableLetters = new Set(data?.availableLetters || [activeLetter]);
 
     return (
         <section className="py-8 bg-gray-50">
@@ -42,9 +46,12 @@ const TestMenu = () => {
                         <Button
                             key={letter}
                             onClick={() => handleLetterSelect(letter)}
+                            disabled={!availableLetters.has(letter)}
                             className={`px-4 py-2 rounded-lg font-medium transition-all ${activeLetter === letter
-                                ? "bg-[#AA1626] text-white"
-                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                    ? "bg-[#AA1626] text-white"
+                                    : !availableLetters.has(letter)
+                                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                                 }`}
                         >
                             {letter}
@@ -52,20 +59,25 @@ const TestMenu = () => {
                     ))}
                 </div>
 
-                <hr className="mb-5"/>
+                <hr className="mb-5" />
 
                 {/* Package Grid */}
                 {isLoading ? (
-                    <p className="text-center text-indigo-700">Loading...</p>
+                    <Loading message="Loading TestMenu"/>
                 ) : isError ? (
-                        <p className="text-center text-gray-800">
-                            No tests found for "{activeLetter}".
-                        </p>
+                    <p className="text-center text-gray-800">
+                        No tests found for "{activeLetter}".
+                    </p>
                 ) : data?.data.length > 0 ? (
-                    <PackageGrid
-                        packages={data.data}
-                        onSelect={(pkg) => setSelectedPkg(pkg)}
-                    />
+                            <div
+                                key={activeLetter + currentPage} // force re-render for animation
+                                className="transition-opacity duration-500 ease-in-out opacity-0 animate-fadeIn"
+                            >
+                                <PackageGrid
+                                    packages={data.data}
+                                    onSelect={(pkg) => setSelectedPkg(pkg)}
+                                />
+                            </div>
                 ) : (
                     <p className="text-center text-gray-500">
                         No tests found for "{activeLetter}".

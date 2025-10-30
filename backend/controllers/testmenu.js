@@ -13,24 +13,36 @@ exports.createTestMenu = async (req, res) => {
 
 exports.getAllTestPage = async (req, res) => {
     try {
-        const { page = 1, limit = 2, letter } = req.query; // get letter filter
+        const { page = 1, limit = 2, letter } = req.query;
         const query = {};
 
         if (letter) {
-            // Filter names starting with the letter (case-insensitive)
             query.name = { $regex: `^${letter}`, $options: "i" };
         }
 
         const totalItems = await TestMenu.countDocuments(query);
         const totalPages = Math.ceil(totalItems / limit);
-        const currentPage = Math.min(page, totalPages);
+        const currentPage = Math.min(page, totalPages || 1);
 
         const data = await TestMenu.find(query)
             .skip((currentPage - 1) * limit)
             .limit(parseInt(limit))
-            .sort({ name: 1 }); // optional: sort alphabetically
+            .sort({ name: 1 });
 
-        res.json({
+        // ✅ Compute available letters dynamically (for filter)
+        const lettersData = await TestMenu.aggregate([
+            {
+                $group: {
+                    _id: { $toUpper: { $substrCP: ["$name", 0, 1] } },
+                },
+            },
+            { $sort: { "_id": 1 } },
+        ]);
+
+        const availableLetters = lettersData.map((l) => l._id);
+
+        res.status(200).json({
+            success: true,
             data,
             pagination: {
                 totalItems,
@@ -38,12 +50,15 @@ exports.getAllTestPage = async (req, res) => {
                 currentPage,
                 limit: parseInt(limit),
             },
+            availableLetters,
         });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ success: false, message: "Server error" });
     }
 };
+
+
 exports.getAllTestMenus = async (req, res) => {
     try {
         const testMenus = await TestMenu.find();

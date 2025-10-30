@@ -25,7 +25,7 @@
 const express = require("express");
 const router = express.Router();
 const multerUpload = require("../config/multerConfig");
-const { addTestPackage, getAllTestPackages, deleteTestPackage, updateTestPackage } = require("../controllers/testpackagecategory");
+const { addTestPackage, getAllTestPackages, deleteTestPackage, updateTestPackage, getTestsByPackageId } = require("../controllers/testpackagecategory");
 
 
 // ➕ Add a new test package
@@ -36,6 +36,8 @@ router.post(
 );
 
 // 📦 Get all test packages
+router.get("/tests/:id", getTestsByPackageId);
+
 router.get("/", getAllTestPackages);
 
 // 📝 Update a test package

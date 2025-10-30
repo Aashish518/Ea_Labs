@@ -119,6 +119,7 @@
 
 
 const TestPackageCategory = require("../models/testpackagecategory");
+const Test = require("../models/test");
 const fs = require("fs");
 const path = require("path");
 
@@ -227,3 +228,27 @@ exports.deleteTestPackage = async (req, res) => {
         res.status(500).json({ message: "Server Error" });
     }
 };
+
+exports.getTestsByPackageId = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Find the test package
+        const testPackage = await TestPackageCategory.findById(id).lean();
+        if (!testPackage)
+            return res.status(404).json({ message: "Test package not found" });
+
+        // Find related tests by IDs
+        const relatedTests = await Test.find({ _id: { $in: testPackage.tests } }).lean();
+
+        // Return both package info and tests
+        res.status(200).json({
+            package: testPackage,   // includes name, description, etc.
+            tests: relatedTests,    // array of tests
+        });
+    } catch (err) {
+        console.error("Error fetching tests by package ID:", err);
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+

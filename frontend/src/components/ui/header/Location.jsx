@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import Button from "../common/Button";
 import Icon from "../../Icon";
 import { getLocations } from "../../../api/apis/location";
-import { useLocation } from "../../../Context/LocationContext";
-import AlertBox from "../common/AlertBox"
+import { useAtom } from "jotai";
+import { selectedLocationAtom } from "../../../store/LocationStore";
 
 const Location = () => {
     const [open, setOpen] = useState(false);
     const [hasUserSelected, setHasUserSelected] = useState(false);
-    const { selectedLocation, setSelectedLocation } = useLocation();
+    const [selectedLocation, setSelectedLocation] = useAtom(selectedLocationAtom);
 
     const { data: locations = [], isLoading, isError } = useQuery({
         queryKey: ["locations"],
@@ -19,7 +19,7 @@ const Location = () => {
     const handleSelect = (loc) => {
         setSelectedLocation(loc);
         setOpen(false);
-        setHasUserSelected(true); 
+        setHasUserSelected(true);
     };
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const Location = () => {
 
         const detectLocation = async () => {
             if (!navigator.geolocation) {
-                const fallback = locations.find((loc) => loc.locationName === "nnn") || locations[0];
+                const fallback = locations.find((loc) => loc.locationName === "Ahmedabad") || locations[0];
                 setSelectedLocation(fallback);
                 return;
             }
@@ -48,22 +48,23 @@ const Location = () => {
                             : null;
 
                         const finalLoc =
-                            matchedLoc || locations.find((loc) => loc.locationName === "nnn") || locations[0];
+                            matchedLoc || locations.find((loc) => loc.locationName === "Ahmedabad") || locations[0];
 
                         setSelectedLocation(finalLoc);
                         if (matchedLoc) {
-                            alert(`Your current location is ${finalLoc.locationName}. If you want, you can change it.`)
-                        } else {   
-                            alert(`Your current city "${city}" does not match our service locations. Default location selected: ${finalLoc.locationName}.`)
+                            alert(`Your current location is ${finalLoc.locationName}. If you want, you can change it.`);
+                        } else {
+                            alert(`Your current city "${city}" does not match our service locations. Default location selected: ${finalLoc.locationName}.`);
                         }
                     } catch (err) {
                         console.error("Reverse geocoding error:", err);
-                        const fallback = locations.find((loc) => loc.locationName === "nnn") || locations[0];
+                        const fallback = locations.find((loc) => loc.locationName === "Ahmedabad") || locations[0];
                         setSelectedLocation(fallback);
                     }
                 },
                 () => {
-                    const fallback = locations.find((loc) => loc.locationName === "nnn") || locations[0];
+                    alert("Please turn on your device's location or select a location manually to view tests available in your area.");
+                    const fallback = locations.find((loc) => loc.locationName === "Ahmedabad") || locations[0];
                     setSelectedLocation(fallback);
                 }
             );
@@ -71,6 +72,12 @@ const Location = () => {
 
         detectLocation();
     }, [locations, hasUserSelected, setSelectedLocation]);
+
+    // ✅ Get short name (first 3 letters capitalized)
+    const getShortName = (name) => {
+        if (!name) return "Loc";
+        return name.length > 3 ? name.slice(0, 3).toUpperCase() : name.toUpperCase();
+    };
 
     return (
         <div className="relative">
@@ -82,9 +89,17 @@ const Location = () => {
                     path="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     className="w-5 h-5 text-[#203270]"
                 />
+
+                {/* ✅ Full name on md+ screens, short on mobile */}
                 <span className="text-sm font-bold">
-                    {selectedLocation ? selectedLocation.locationName : "Select Location"}
+                    <span className="hidden sm:inline">
+                        {selectedLocation ? selectedLocation.locationName : "Select Location"}
+                    </span>
+                    <span className="inline sm:hidden">
+                        {selectedLocation ? getShortName(selectedLocation.locationName) : "LOC"}
+                    </span>
                 </span>
+
                 <Icon
                     path="M19 9l-7 7-7-7"
                     className={`w-4 h-4 rounded-full bg-blue-900 text-white transform transition-transform ${open ? "rotate-180" : ""

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import CTA from "../components/ui/home/CAT";
 import Certifications from "../components/ui/home/Certifications";
 import CheckupSection from "../components/ui/home/checkup/CheckupSection";
@@ -10,53 +10,84 @@ import QualityControlBanner from "../components/ui/home/QualityControlBanner";
 import Stats from "../components/ui/home/Stats";
 import WhyUs from "../components/ui/home/WhyUs";
 import { useNavigate } from "react-router-dom";
-import { useLocation as useSelectedLocation } from "../Context/LocationContext";
 import { useLocation as useRouterLocation } from "react-router-dom";
-import { useEffect } from "react";
 
+const Home = () => {
+    const [hasHealthMatch, setHasHealthMatch] = useState(false);
+    const [hasCheckupMatch, setHasCheckupMatch] = useState(false);
 
-const Home=()=> {
     const location = useRouterLocation();
     const navigate = useNavigate();
+
     const healthPackagesRef = useRef(null);
+    const checkupRef = useRef(null);
 
     useEffect(() => {
+        // ✅ Scroll when coming from another page with state
         if (location.state?.scrollToHealthPackages) {
-            scrollToHealthPackages();
+            healthPackagesRef.current?.scrollIntoView({ behavior: "smooth" });
+            window.history.replaceState({}, document.title);
+        }
+        if (location.state?.scrollToCheckupSection) {
+            checkupRef.current?.scrollIntoView({ behavior: "smooth" });
             window.history.replaceState({}, document.title);
         }
     }, [location.state]);
+
+    useEffect(() => {
+        // ✅ Scroll to HealthPackages only when a search match is found
+        if (hasHealthMatch) {
+            healthPackagesRef.current?.scrollIntoView({ behavior: "smooth" });
+            setHasHealthMatch(false);
+        }
+    }, [hasHealthMatch]);
+
+    useEffect(() => {
+        // ✅ Scroll to CheckupSection only when a search match is found
+        if (hasCheckupMatch) {
+            checkupRef.current?.scrollIntoView({ behavior: "smooth" });
+            setHasCheckupMatch(false);
+        }
+    }, [hasCheckupMatch]);
 
     const handletestdetail = (id) => {
         navigate(`/test-detail/${id}`);
     };
 
-    const scrollToHealthPackages = () => {
-        healthPackagesRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
-
     return (
         <div className="bg-white">
-            <main>
-                <Hero />
-                <Certifications />
-                <Features />
-                <div ref={healthPackagesRef}>
-                    <HealthPackages handletestdetail={handletestdetail} />
-                </div>
-                <QualityControlBanner />
-                <div className="from-[#f0fef7] to-white w-full font-sans p-4 sm:p-8 mb-6">
-                    <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
-                        <CheckupSection title="Routine health checkups"/>
+            <Hero />
+            <Certifications />
+            <Features />
+
+            {/* ✅ Health Packages Section */}
+            <div ref={healthPackagesRef}>
+                <HealthPackages
+                    handletestdetail={handletestdetail}
+                    matchdata={setHasHealthMatch}
+                />
+            </div>
+
+            <QualityControlBanner />
+
+            {/* ✅ Checkup Section */}
+            <div className="from-[#f0fef7] to-white w-full font-sans p-4 sm:p-8 mb-6">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
+                    <div ref={checkupRef}>
+                        <CheckupSection
+                            title="Routine health checkups"
+                            matchdata={setHasCheckupMatch}
+                        />
                     </div>
                 </div>
-                <Stats />
-                <OurNetworks/>
-                <WhyUs />
-                <CTA />
-            </main>
+            </div>
+
+            <Stats />
+            <OurNetworks />
+            <WhyUs />
+            <CTA />
         </div>
     );
-}
+};
 
 export default Home;

@@ -3,19 +3,24 @@ import Image from "../../common/Image";
 const CheckupCard = ({ imageUrl, title, Price, onClick }) => (
     <div
         onClick={onClick}
-        className="flex flex-col items-center text-center">
-        <div className={`bg-gradient-to-br from-indigo-200 to-indigo-400 p-2 rounded-3xl shadow-lg w-full`}>
+        className="w-auto bg-white border border-gray-200 rounded-2xl pb-4 shadow-sm hover:shadow-lg hover:border-gray-300 transition-all duration-300 flex flex-col items-center text-center cursor-pointer group"
+    >
+        
+        {/* Image */}
             <Image
                 src={imageUrl}
                 alt={title}
-                className="w-auto h-auto rounded-2xl aspect-square"
+                className="w-full h-full"
             />
-        </div>
-        <div className="mt-4 px-2">
-            <p className="font-semibold text-indigo-900 text-sm md:text-base">{title}</p>
-            <span className="mt-2 inline-block text-indigo-800 border border-indigo-700 rounded-full px-3 py-1 text-xs md:text-sm font-medium">
+
+        {/* Title & Price */}
+        <div className="mt-3">
+            <p className="font-semibold text-gray-800 text-lg md:text-base group-hover:text-gray-900 transition-colors duration-200">
+                {title}
+            </p>
+            <p className="text-gray-600 text-xs md:text-sm font-medium mt-1">
                 {Price}
-            </span>
+            </p>
         </div>
     </div>
 );

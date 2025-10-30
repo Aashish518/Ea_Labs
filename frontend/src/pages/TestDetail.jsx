@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Button from "../components/ui/common/Button";
 import api from "../api/config/config";
+import Loading from "../components/Loading";
 
 const TestDetail = () => {
     const { id } = useParams();
@@ -20,7 +21,7 @@ const TestDetail = () => {
     });
 
     if (isLoading) {
-        return <div className="p-8 text-center">Loading test details...</div>;
+        return <Loading message="Loading Test Details"/>;
     }
 
     if (isError || !test) {
@@ -111,7 +112,13 @@ const TestDetail = () => {
                                     ))}
                                 </ul>
                             )}
-                            {activeTab === "prerequisites" && <p className="text-black leading-relaxed">{test.prerequisites.join(", ")}</p>}
+                            {activeTab === "prerequisites" && (
+                                <ul className="list-disc list-inside text-black space-y-2">
+                                    {test.prerequisites.map((p, index) => (
+                                        <li key={index}>{p}</li>
+                                    ))}
+                                </ul>
+                            )}
                             {activeTab === "faqs" && (
                                 <div className="space-y-4">
                                     {test.faqs.map((faq, index) => (

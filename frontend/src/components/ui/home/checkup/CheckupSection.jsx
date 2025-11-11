@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
+import { motion } from "framer-motion"; // 👈 Added
 import { searchDataAtom } from "../../../../store/SearchStore";
 import CheckupCard from "./CheckupCard";
 import { getAllTestPackages } from "../../../../api/apis/packagecategory";
@@ -50,20 +51,34 @@ const CheckupSection = ({ title, matchdata }) => {
     if (isError) return <p className="text-center text-red-600">Failed to load data</p>;
 
     return (
-        <div className="w-full mb-8">
+        <motion.div
+            className="w-full mb-8"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+        >
             <h2 className="text-xl lg:text-2xl font-bold text-indigo-900 mb-6 text-center">
                 {title}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-5 md:gap-6 px-10 sm:px-1">
                 {filteredCheckups.length > 0 ? (
-                    filteredCheckups.map((checkup) => (
-                        <CheckupCard
+                    filteredCheckups.map((checkup, index) => (
+                        <motion.div
                             key={checkup._id}
-                            imageUrl={`http://localhost:7000${checkup.image}`}
-                            title={checkup.name}
-                            Price={`₹${checkup.price}`}
-                            onClick={() => handleCardClick(checkup._id)}
-                        />
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            viewport={{ once: true }}
+                        >
+                            <CheckupCard
+                                imageUrl={`http://localhost:7000${checkup.image}`}
+                                title={checkup.name}
+                                Price={`₹${checkup.price}`}
+                                onClick={() => handleCardClick(checkup._id)}
+                            />
+                        </motion.div>
                     ))
                 ) : (
                     <p className="text-center text-gray-600 col-span-full">
@@ -71,7 +86,7 @@ const CheckupSection = ({ title, matchdata }) => {
                     </p>
                 )}
             </div>
-        </div>
+        </motion.div>
     );
 };
 

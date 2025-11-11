@@ -67,9 +67,9 @@ const ContactUs = () => {
                 <div className="flex items-center justify-center order-1 md:order-2">
                     <div className="w-full h-64 md:h-full bg-gray-100 rounded-lg flex items-center justify-center">
                         <Image
-                            src="https://via.placeholder.com/400x300"
+                            src="http://localhost:7000/uploads/1762516502581.jpg"
                             alt="Contact Illustration"
-                            className="rounded-lg object-cover"
+                            className="rounded-lg h-full w-full"
                         />
                     </div>
                 </div>

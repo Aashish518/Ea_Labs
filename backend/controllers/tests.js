@@ -103,7 +103,7 @@ exports.getCategoriesWithTestsByLocation = async (req, res) => {
                     tests: [],
                 };
             }
-            if (grouped[catId].tests.length < 3) { // max 3 tests per category
+            if (grouped[catId].tests) { // max 3 tests per category
                 grouped[catId].tests.push(test);
             }
         });

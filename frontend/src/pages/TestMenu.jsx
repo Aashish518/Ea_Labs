@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { motion, AnimatePresence } from "framer-motion";
 import Button from "../components/ui/common/Button";
 import PackageGrid from "../components/ui/testmenu/PackageGrid";
 import PackageModal from "../components/ui/testmenu/PackageModal";
@@ -8,7 +9,7 @@ import Loading from "../components/Loading";
 
 const TestMenu = () => {
     const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    const [activeLetter, setActiveLetter] = useState("A");
+    const [activeLetter, setActiveLetter] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
     const [selectedPkg, setSelectedPkg] = useState(null);
@@ -18,6 +19,12 @@ const TestMenu = () => {
         queryFn: () => getAllTestMenus(currentPage, itemsPerPage, activeLetter),
         keepPreviousData: true,
     });
+
+    useEffect(() => {
+        if (!activeLetter && data?.availableLetters?.length > 0) {
+            setActiveLetter(data.availableLetters[0]);
+        }
+    }, [data, activeLetter]);
 
     const handleLetterSelect = (letter) => {
         setActiveLetter(letter);
@@ -31,8 +38,6 @@ const TestMenu = () => {
     };
 
     const totalPages = data?.pagination?.totalPages || 1;
-
-    // ✅ Cache of letters that have results
     const availableLetters = new Set(data?.availableLetters || [activeLetter]);
 
     return (
@@ -47,12 +52,13 @@ const TestMenu = () => {
                             key={letter}
                             onClick={() => handleLetterSelect(letter)}
                             disabled={!availableLetters.has(letter)}
-                            className={`px-4 py-2 rounded-lg font-medium transition-all ${activeLetter === letter
+                            className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                                activeLetter === letter
                                     ? "bg-[#AA1626] text-white"
                                     : !availableLetters.has(letter)
-                                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                }`}
+                                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            }`}
                         >
                             {letter}
                         </Button>
@@ -63,30 +69,37 @@ const TestMenu = () => {
 
                 {/* Package Grid */}
                 {isLoading ? (
-                    <Loading message="Loading TestMenu"/>
+                    <Loading message="Loading TestMenu" />
                 ) : isError ? (
                     <p className="text-center text-gray-800">
                         No tests found for "{activeLetter}".
                     </p>
-                ) : data?.data.length > 0 ? (
-                            <div
-                                key={activeLetter + currentPage} // force re-render for animation
-                                className="transition-opacity duration-500 ease-in-out opacity-0 animate-fadeIn"
-                            >
+                ) : (
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeLetter + currentPage}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.4, ease: "easeInOut" }}
+                        >
+                            {data?.data?.length > 0 ? (
                                 <PackageGrid
                                     packages={data.data}
                                     onSelect={(pkg) => setSelectedPkg(pkg)}
                                 />
-                            </div>
-                ) : (
-                    <p className="text-center text-gray-500">
-                        No tests found for "{activeLetter}".
-                    </p>
+                            ) : (
+                                <p className="text-center text-gray-500">
+                                    No tests found for "{activeLetter}".
+                                </p>
+                            )}
+                        </motion.div>
+                    </AnimatePresence>
                 )}
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                    <div className="flex justify-center items-center gap-3">
+                    <div className="flex justify-center items-center gap-3 mt-6">
                         <Button
                             onClick={() => goToPage(currentPage - 1)}
                             disabled={currentPage === 1}

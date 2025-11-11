@@ -127,6 +127,7 @@ const ContactUs = () => {
                             placeholder="Address Line 1"
                             value={formData.address}
                             onChange={handleChange}
+                            required
                         />
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -136,6 +137,7 @@ const ContactUs = () => {
                                 placeholder="City"
                                 value={formData.city}
                                 onChange={handleChange}
+                                required
                             />
                             <Input
                                 label="Pincode"
@@ -143,6 +145,7 @@ const ContactUs = () => {
                                 placeholder="Pincode"
                                 value={formData.pincode}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
 

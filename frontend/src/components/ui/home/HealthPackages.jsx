@@ -51,7 +51,7 @@ const HealthPackages = ({ handletestdetail, matchdata }) => {
         return matchedCategories.length > 0 ? matchedCategories : categoriesData;
     }, [categoriesData, searchData]);
 
-    // ✅ Only trigger scroll flag when a true search match happens
+    console.log(filteredCategories, "hhhh")
     useEffect(() => {
         if (searchData && searchData.trim() !== "") {
             const query = searchData.toLowerCase();
@@ -77,25 +77,49 @@ const HealthPackages = ({ handletestdetail, matchdata }) => {
                     Curated Health Checkup Packages
                 </h2>
 
-                <div className="flex gap-2 mb-12 overflow-x-auto whitespace-nowrap md:justify-start pb-3">
-                    {isLoading && <span>Loading categories...</span>}
-                    {isError && (
-                        <span className="text-red-500">Error loading categories</span>
-                    )}
-                    {filteredCategories.map((cat) => (
-                        <Button
-                            key={cat.categoryId}
-                            onClick={() => setActiveCategory(cat.categoryName)}
-                            className={`px-6 py-2 rounded-full text-sm font-semibold transition ${activeCategory === cat.categoryName
-                                    ? "bg-red-600 text-white"
-                                    : "bg-gradient-to-r from-purple-100 to-white text-black border border-[#203270] hover:bg-gray-100"
-                                }`}
-                        >
-                            {cat.categoryName}
-                        </Button>
-                    ))}
-                </div>
+                {/* ✅ Category Buttons with Images */}
+                <div className="flex overflow-x-auto whitespace-nowrap no-scrollbar space-x-3 p-2">
+  {filteredCategories.map((cat) => (
+    <div
+      key={cat.categoryId}
+      className="inline-block flex-shrink-0" // prevents items from shrinking on mobile
+    >
+      <Button
+        onClick={() => setActiveCategory(cat.categoryName)}
+        className={`flex items-center rounded-full overflow-visible transition border border-[#203270]
+          ${activeCategory === cat.categoryName
+            ? "bg-red-600 text-white"
+            : "bg-gradient-to-r from-purple-100 to-white text-black hover:bg-gray-100"
+          }`}
+      >
+        {/* Image box */}
+        <div className="bg-white p-1 rounded-full flex items-center justify-center flex-shrink-0">
+          {cat.image && (
+            <img
+              src={`http://localhost:7000/uploads/${cat.image}`}
+              alt={cat.categoryName}
+              className="h-8 w-8 sm:w-12 sm:h-12 rounded-full object-cover"
+            />
+          )}
+        </div>
 
+        {/* Text area */}
+        <span
+          className={`px-4 py-2 font-semibold sm:text-lg ${
+            activeCategory === cat.categoryName ? "text-white" : "text-black"
+          }`}
+        >
+          {cat.categoryName}
+        </span>
+      </Button>
+    </div>
+  ))}
+</div>
+
+
+
+
+                {/* ✅ Test Cards */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {filteredCategories
                         .filter((cat) => cat.categoryName === activeCategory)

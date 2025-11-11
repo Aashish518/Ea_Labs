@@ -9,34 +9,41 @@ const testSchema = new mongoose.Schema(
         },
         description: {
             type: String,
+            required: true,
         },
         include: {
             type: [String],
+            required: true,
             default: [],
         },
         for: {
             type: [String],
+            required: true,
             default: [],
         },
         reportInTime: {
             type: String,
+            required: true,
         },
         overview: {
             type: String,
+            required: true,
         },
         testComponent: {
             type: [String],
+            required: true,
             default: [],
         },
         prerequisites: {
             type: [String],
+            required: true,
             default: [],
         },
         faqs: {
             type: [
                 {
-                    question: { type: String },
-                    answer: { type: String },
+                    question: { type: String,required: true, },
+                    answer: { type: String,required: true, },
                 },
             ],
             default: [],
@@ -54,6 +61,7 @@ const testSchema = new mongoose.Schema(
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Location",
+                required: true,
             },
         ],
     },

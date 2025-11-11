@@ -5,7 +5,7 @@ const Logo = () => (
         <Image
             src={logoImg}
             alt="EA Lab Logo"
-            className="h-10 w-auto"
+            className="h-8 sm:h-15 w-auto"
         />
 );
 

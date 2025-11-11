@@ -2,7 +2,7 @@ import React from "react";
 
 const Stats = () => (
     <section className="bg-[#203270] py-20 w-full">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="container max-w-7xl mx-auto px-4">
             {/* Header */}
             <div className="mb-10 text-left">
                 <h2 className="text-4xl font-bold mb-2 text-white">EA Labs - Setting the Standard in Diagnostics.</h2>

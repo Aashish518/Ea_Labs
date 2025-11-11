@@ -192,6 +192,7 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                         placeholder="Enter test description"
                         rows={3}
+                        required={true}
                     />
                 </div>
 
@@ -256,6 +257,7 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                         onChange={(e) => setFormData({ ...formData, overview: e.target.value })}
                         placeholder="Enter test overview"
                         rows={3}
+                        required={true}
                     />
                 </div>
 

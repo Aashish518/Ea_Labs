@@ -1,4 +1,7 @@
 import Image from "../common/Image";
+import icmr from "../../../assets/img/ICMR.png";
+import iso from "../../../assets/img/ISO.png";
+import nabl from "../../../assets/img/NABL.png"
 
 // Certifications Component
 const Certifications = () => (
@@ -7,11 +10,24 @@ const Certifications = () => (
             <p className="text-[18px] text-gray-600 max-w-4xl mx-auto mb-12">
                 At EA Labs, an ISO, NABL & ICMR certified diagnostics center, we combine cutting-edge analyzers, globally validated assays, and rigorous quality controls to deliver clean, actionable results.
             </p>
-            <div className="flex justify-center items-center space-between space-x-1 sm:space-x-8 md:space-x-16 mb-13">
-                <Image src="https://placehold.co/150x150/EFEFEF/333333?text=ISO+9001:2015" alt="ISO Certified" className="h-24 md:h-32" />
-                <Image src="https://placehold.co/150x150/EFEFEF/333333?text=ICMR" alt="ICMR Certified" className="h-24 md:h-32" />
-                <Image src="https://placehold.co/150x150/EFEFEF/333333?text=NABL" alt="NABL Certified" className="h-24 md:h-32" />
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 md:gap-16 mb-10">
+                <Image
+                    src={iso}
+                    alt="ISO Certified"
+                    className="h-16 sm:h-20 md:h-28 w-auto"
+                />
+                <Image
+                    src={icmr}
+                    alt="ICMR Certified"
+                    className="h-16 sm:h-20 md:h-28 w-auto"
+                />
+                <Image
+                    src={nabl}
+                    alt="NABL Certified"
+                    className="h-16 sm:h-20 md:h-28 w-auto"
+                />
             </div>
+
         </div>
     </section>
 );

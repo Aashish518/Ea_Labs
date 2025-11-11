@@ -87,7 +87,7 @@ exports.getCategoriesWithTestsByLocation = async (req, res) => {
 
         // 2️⃣ Find tests that include this location
         const tests = await Test.find({ locations: location._id })
-            .populate("category", "categoryName") // populate category name
+            .populate("category", "categoryName image") // populate category name
             .select("name description include for reportInTime price category")
             .lean(); // convert to plain JS objects
 
@@ -99,6 +99,7 @@ exports.getCategoriesWithTestsByLocation = async (req, res) => {
                 grouped[catId] = {
                     categoryId: test.category._id,
                     categoryName: test.category.categoryName,
+                    image:test.category.image,
                     tests: [],
                 };
             }

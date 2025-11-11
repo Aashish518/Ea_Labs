@@ -1,10 +1,20 @@
 // components/Header/SocialIcons.jsx
+import instagram from "../../../assets/img/instagram.png";
+import facebook from "../../../assets/img/facebook.png";
+
 const SocialIcons = () => (
-    <div className="flex space-x-2">
-        <div className="w-6 h-6 bg-blue-600 rounded-full"></div>
-        <div className="w-6 h-6 bg-red-500 rounded-full"></div>
-        <div className="w-6 h-6 bg-blue-400 rounded-full"></div>
-    </div>
+  <div className="flex space-x-2">
+    <img
+      src={instagram}
+      alt="Facebook"
+      className="w-6 h-6 rounded-full object-cover"
+    />
+    <img
+      src={facebook}
+      alt="Instagram"
+      className="w-6 h-6 rounded-full object-cover"
+    />
+  </div>
 );
 
 export default SocialIcons;

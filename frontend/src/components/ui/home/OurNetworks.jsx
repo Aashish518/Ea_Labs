@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Icon from '../../Icon';
+import mapImage from "../../../assets/img/India Map.png"
 
 // --- Data for different network locations ---
 const locations = [
@@ -9,7 +10,7 @@ const locations = [
         address: '108, Westface, Hebatpur Rd, near Baghban Party Plot, Thaltej, Ahmedabad, Gujarat 380059',
         phone: '9099045241',
         email: 'endoallergy@yahoo.com',
-        coords: { top: '55%', left: '20%' },
+        coords: { top: '44%', left: '24%' },
     },
     {
         id: 'jodhpur',
@@ -17,7 +18,7 @@ const locations = [
         address: '45, Sunshine Complex, Pali Road, Jodhpur, Rajasthan 342001',
         phone: '9876543210',
         email: 'contact.jodhpur@example.com',
-        coords: { top: '25%', left: '30%' },
+        coords: { top: '33%', left: '26%' },
     },
     {
         id: 'gwalior',
@@ -25,7 +26,7 @@ const locations = [
         address: '7, City Center, Near Railway Station, Gwalior, Madhya Pradesh 474002',
         phone: '8765432109',
         email: 'contact.gwalior@example.com',
-        coords: { top: '30%', left: '68%' },
+        coords: { top: '37%', left: '41%' },
     },
     {
         id: 'jaipur',
@@ -33,7 +34,7 @@ const locations = [
         address: '12, Pink City Plaza, Tonk Road, Jaipur, Rajasthan 302015',
         phone: '7654321098',
         email: 'contact.jaipur@example.com',
-        coords: { top: '42%', left: '48%' },
+        coords: { top: '35%', left: '35%' },
     },
     {
         id: 'kota',
@@ -41,7 +42,7 @@ const locations = [
         address: '88, Education Hub, Jhalawar Road, Kota, Rajasthan 324005',
         phone: '6543210987',
         email: 'contact.kota@example.com',
-        coords: { top: '58%', left: '45%' },
+        coords: { top: '38%', left: '36%' },
     },
     {
         id: 'vadodara',
@@ -49,7 +50,7 @@ const locations = [
         address: '21, Alkapuri, R.C. Dutt Road, Vadodara, Gujarat 390007',
         phone: '5432109876',
         email: 'contact.vadodara@example.com',
-        coords: { top: '70%', left: '28%' },
+        coords: { top: '46%', left: '30%' },
     },
     {
         id: 'anand',
@@ -57,7 +58,7 @@ const locations = [
         address: '15, Milk Capital Complex, Station Road, Anand, Gujarat 388001',
         phone: '4321098765',
         email: 'contact.anand@example.com',
-        coords: { top: '65%', left: '22%' },
+        coords: { top: '45%', left: '28%' },
     },
     {
         id: 'indore',
@@ -65,7 +66,7 @@ const locations = [
         address: '3, AB Road, Near Vijay Nagar Square, Indore, Madhya Pradesh 452010',
         phone: '3210987654',
         email: 'contact.indore@example.com',
-        coords: { top: '80%', left: '46%' },
+        coords: { top: '45%', left: '35%' },
     },
     {
         id: 'bhopal',
@@ -73,7 +74,7 @@ const locations = [
         address: '10, Lake View Road, MP Nagar, Bhopal, Madhya Pradesh 462011',
         phone: '2109876543',
         email: 'contact.bhopal@example.com',
-        coords: { top: '70%', left: '60%' },
+        coords: { top: '44%', left: '40%' },
     },
 ];
 
@@ -92,7 +93,7 @@ export default function OurNetworks() {
     const [selectedLocation, setSelectedLocation] = useState(locations[0]);
 
     return (
-        <div className="bg-gradient-to-r from-purple-200 to-white w-full py-12 px-4 sm:px-8">
+        <div className="bg-gray-300 w-full py-12 px-4 sm:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
                 <div className="mb-10 text-center md:text-left">
@@ -125,7 +126,7 @@ export default function OurNetworks() {
                     {/* Right Side: Map with Dynamic Pins */}
                     <div className="w-full md:w-2/3 relative">
                         <img
-                            src="https://i.imgur.com/K2rfDEs.png" // Using a transparent map image
+                            src={mapImage} // Using a transparent map image
                             alt="Map of our networks across India"
                             className="w-full h-auto rounded-lg object-contain"
                         />

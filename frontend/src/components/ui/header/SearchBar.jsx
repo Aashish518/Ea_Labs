@@ -22,7 +22,7 @@ const SearchBar = () => {
                     placeholder="Search tests, packages, or categories..."
                     value={inputValue}
                     onChange={handleChange}
-                    className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#203270]"
+                    className="w-full py-2 pl-4 pr-10 border border-gray-400 rounded-full focus:outline-none focus:ring-2 focus:ring-[#203270]"
                 />
 
                 {/* Clickable search icon */}

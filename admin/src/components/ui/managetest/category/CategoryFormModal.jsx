@@ -8,11 +8,11 @@ import ImageUpload from "../../common/ImageUpload";
 const CategoryFormModal = ({ isOpen, onClose, onSubmit, editData }) => {
     const [categoryName, setCategoryName] = useState(editData?.categoryName || "");
     const [image, setImage] = useState(null);
-    const [preview, setPreview] = useState(editData?.image ? `http://localhost:7000/uploads/${editData.image}` : null);
+    const [preview, setPreview] = useState(editData?.image ? `${import.meta.env.VITE_BACK_URL}/uploads/${editData.image}` : null);
 
     useEffect(() => {
         setCategoryName(editData?.categoryName || "");
-        setPreview(editData?.image ? `http://localhost:7000/uploads/${editData.image}` : null);
+        setPreview(editData?.image ? `${import.meta.env.VITE_BACK_URL}/uploads/${editData.image}` : null);
     }, [editData]);
 
     const handleUpload = (files) => {

@@ -12,13 +12,13 @@ const ImagePreviewCard = ({ image, onDelete, onView, onToggleVisibility, index, 
             <div className="aspect-video bg-gray-100 flex items-center justify-center">
                 {isVideo ? (
                     <Video
-                        src={`http://localhost:7000${image.url}`}
+                        src={`${import.meta.env.VITE_BACK_URL}${image.url}`}
                         controls={false}
                         className="w-full h-full"
                     />
                 ) : (
                     <Image
-                        src={`http://localhost:7000${image.url}`}
+                        src={`${import.meta.env.VITE_BACK_URL}${image.url}`}
                         alt={`Media ${index + 1}`}
                         className="w-full h-full"
                     />

@@ -20,7 +20,7 @@ const Category = ({ categories, handleDeleteCategory, onAddClick, onEditCategory
             <Table
                 headers={["Logo", "Category Name"]}
                 data={categories.map((cat) => ({
-                    image: cat.image ? `http://localhost:7000/uploads/${cat.image}` : null,
+                    image: cat.image ? `${import.meta.env.VITE_BACK_URL}/uploads/${cat.image}` : null,
                     categoryName: cat.categoryName,
                     _id: cat._id,
                 }))}

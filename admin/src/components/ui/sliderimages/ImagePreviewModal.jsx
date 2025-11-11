@@ -28,14 +28,14 @@ const ImagePreviewModal = ({ image, onClose }) => {
                 <div className="relative overflow-hidden rounded-lg">
                     {isVideo ? (
                         <Video
-                            src={`http://localhost:7000${image.url}`}
+                            src={`${import.meta.env.VITE_BACK_URL}${image.url}`}
                             controls
                             autoPlay
                             className="max-w-full max-h-[90vh] rounded-lg"
                         />
                     ) : (
                         <Image
-                            src={`http://localhost:7000${image.url}`}
+                            src={`${import.meta.env.VITE_BACK_URL}${image.url}`}
                             alt="Preview"
                             className="max-w-full max-h-[90vh] rounded-lg"
                         />

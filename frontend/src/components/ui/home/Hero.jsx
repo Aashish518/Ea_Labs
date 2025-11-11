@@ -13,7 +13,7 @@ const Hero = () => {
     queryFn: getImages,
   });
 
-  const backendURL = "http://localhost:7000";
+  const backendURL = import.meta.env.VITE_BACK_URL;
 
   // ✅ Separate desktop and mobile slides
   const desktopSlides = images.flatMap((img) => 

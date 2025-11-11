@@ -17,7 +17,7 @@ const CategoryDetailsModal = ({ isOpen, onClose, category, testsData = [] }) => 
                     {category.image && (
                         <div className="flex-shrink-0">
                             <img
-                                src={`http://localhost:7000${category.image}`}
+                                src={`${import.meta.env.VITE_BACK_URL}${category.image}`}
                                 alt={category.name}
                                 className="w-24 h-24 object-cover border border-gray-300"
                             />

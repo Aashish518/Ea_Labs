@@ -15,7 +15,7 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="md:flex items-center justify-center flex-grow">
+        <div className="md:flex items-center justify-center grow">
             <div className="relative w-full max-w-lg">
                 <Input
                     type="text"

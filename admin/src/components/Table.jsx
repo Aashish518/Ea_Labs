@@ -11,7 +11,7 @@ const Table = ({ headers, data, onEdit, onDelete, onRowClick, emptyMessage }) =>
   return (  
     <div className="overflow-x-auto">
       <table className="w-full">
-        <thead className="bg-gray-50 border-b border-gray-200">
+        <thead className="bg-gray-200 border-b border-gray-200">
           <tr>
             {headers.map((header, idx) => (
               <th

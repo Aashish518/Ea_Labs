@@ -78,43 +78,42 @@ const HealthPackages = ({ handletestdetail, matchdata }) => {
                 </h2>
 
                 {/* ✅ Category Buttons with Images */}
-                <div className="flex overflow-x-auto whitespace-nowrap no-scrollbar space-x-3 p-2">
-  {filteredCategories.map((cat) => (
-    <div
-      key={cat.categoryId}
-      className="inline-block flex-shrink-0" // prevents items from shrinking on mobile
-    >
-      <Button
-        onClick={() => setActiveCategory(cat.categoryName)}
-        className={`flex items-center rounded-full overflow-visible transition border border-[#203270]
+                <div className="flex overflow-x-auto whitespace-nowrap no-scrollbar space-x-3 pb-15">
+                    {filteredCategories.map((cat) => (
+                        <div
+                            key={cat.categoryId}
+                            className="inline-block shrink-0" // prevents items from shrinking on mobile
+                        >
+                            <Button
+                                onClick={() => setActiveCategory(cat.categoryName)}
+                                className={`flex items-center rounded-full overflow-visible transition border border-[#203270]
           ${activeCategory === cat.categoryName
-            ? "bg-red-600 text-white"
-            : "bg-gradient-to-r from-purple-100 to-white text-black hover:bg-gray-100"
-          }`}
-      >
-        {/* Image box */}
-        <div className="bg-white p-1 rounded-full flex items-center justify-center flex-shrink-0">
-          {cat.image && (
-            <img
-              src={`http://localhost:7000/uploads/${cat.image}`}
-              alt={cat.categoryName}
-              className="h-8 w-8 sm:w-12 sm:h-12 rounded-full object-cover"
-            />
-          )}
-        </div>
+                                        ? "bg-red-600 text-white"
+                                        : "bg-linear-to-r from-white to-white text-black hover:bg-gray-100"
+                                    }`}
+                            >
+                                {/* Image box */}
+                                <div className="bg-white p-1 rounded-full flex items-center justify-center shrink-0">
+                                    {cat.image && (
+                                        <img
+                                            src={`${import.meta.env.VITE_BACK_URL}/uploads/${cat.image}`}
+                                            alt={cat.categoryName}
+                                            className="h-8 w-8 sm:w-12 sm:h-12 rounded-full object-cover"
+                                        />
+                                    )}
+                                </div>
 
-        {/* Text area */}
-        <span
-          className={`px-4 py-2 font-semibold sm:text-lg ${
-            activeCategory === cat.categoryName ? "text-white" : "text-black"
-          }`}
-        >
-          {cat.categoryName}
-        </span>
-      </Button>
-    </div>
-  ))}
-</div>
+                                {/* Text area */}
+                                <span
+                                    className={`px-4 py-2 font-semibold sm:text-lg ${activeCategory === cat.categoryName ? "text-white" : "text-black"
+                                        }`}
+                                >
+                                    {cat.categoryName}
+                                </span>
+                            </Button>
+                        </div>
+                    ))}
+                </div>
 
 
 
@@ -127,9 +126,9 @@ const HealthPackages = ({ handletestdetail, matchdata }) => {
                         .map((pkg) => (
                             <div
                                 key={pkg._id}
-                                className="bg-gradient-to-b from-purple-100 to-white border border-purple-100 rounded-lg shadow-md overflow-hidden flex flex-col"
+                                className="bg-linear-to-b from-purple-100 to-white border border-purple-100 rounded-lg shadow-md overflow-hidden flex flex-col"
                             >
-                                <div className="p-6 flex-grow">
+                                <div className="p-6 grow">
                                     <h3 className="text-xl font-bold mb-2">{pkg.name}</h3>
                                     <p className="text-gray-600 mb-4">{pkg.description}</p>
                                     <div className="flex items-center space-x-2 text-sm text-gray-500 mb-2">

@@ -119,7 +119,7 @@ const TestPackageFormModal = ({ isOpen, onClose, onSubmit, editData, testsData =
     const [selectedTests, setSelectedTests] = useState(editData?.tests || []);
     const [enable, setEnable] = useState(editData ? editData.enable : true);
     const [image, setImage] = useState(null);
-    const [preview, setPreview] = useState(editData?.image ? `http://localhost:7000${editData.image}` : null);
+    const [preview, setPreview] = useState(editData?.image ? `${import.meta.env.VITE_BACK_URL}${editData.image}` : null);
     const [searchTerm, setSearchTerm] = useState("");
 
     // Update fields when editing
@@ -127,7 +127,7 @@ const TestPackageFormModal = ({ isOpen, onClose, onSubmit, editData, testsData =
         setName(editData?.name || "");
         setPrice(editData?.price || "");
         setEnable(editData ? editData.enable : true);
-        setPreview(editData?.image ? `http://localhost:7000${editData.image}` : null);
+        setPreview(editData?.image ? `${import.meta.env.VITE_BACK_URL}${editData.image}` : null);
 
         if (editData?.tests && Array.isArray(editData.tests)) {
             const mappedTests = editData.tests.map((t) => {

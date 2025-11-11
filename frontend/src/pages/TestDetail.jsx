@@ -14,7 +14,7 @@ const TestDetail = () => {
     const { data: test, isLoading, isError } = useQuery({
         queryKey: ["test", id],
         queryFn: async () => {
-            const { data } = await api.get(`/tests/${id}`);
+            const { data } = await api.get(`/api/tests/${id}`);
             return data;
         },
         enabled: !!id,

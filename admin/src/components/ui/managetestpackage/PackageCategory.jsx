@@ -43,7 +43,7 @@ const PackageCategory = ({
                 headers={tableheader}
                 data={categories.map((cat) => ({
                     name: cat.name,
-                    image: cat.image ? `http://localhost:7000${cat.image}` : null,
+                    image: cat.image ? `${import.meta.env.VITE_BACK_URL}${cat.image}` : null,
                     price: cat.price,
                     enable: cat.enable ? "Yes" : "No",
                     tests: cat.tests?.length || 0,

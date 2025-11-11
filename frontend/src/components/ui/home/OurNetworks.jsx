@@ -93,7 +93,7 @@ export default function OurNetworks() {
     const [selectedLocation, setSelectedLocation] = useState(locations[0]);
 
     return (
-        <div className="bg-gray-300 w-full py-12 px-4 sm:px-8">
+        <div className="bg-gray-200 w-full py-12 px-4 sm:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
                 <div className="mb-10 text-center md:text-left">

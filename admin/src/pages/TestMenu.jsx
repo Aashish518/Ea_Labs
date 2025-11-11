@@ -120,7 +120,7 @@ export default function TestMenu() {
                                         placeholder="Search tests..."
                                         value={filters.search}
                                         onChange={(e) => setFilters({ search: e.target.value })}
-                                        className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-[30rem]"
+                                        className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-120"
                                     />
                                 </div>
 

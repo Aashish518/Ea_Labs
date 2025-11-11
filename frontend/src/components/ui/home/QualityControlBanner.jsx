@@ -4,7 +4,7 @@
  */
 export default function QualityControlBanner() {
     return (
-        <div className="bg-[linear-gradient(to_right,_#86efac_70%,_white_100%)] py-11 rounded-xl w-full mb-6">
+        <div className="bg-[linear-gradient(to_right,#86efac_70%,white_100%)] py-11 rounded-xl w-full mb-6">
             <h2 className="text-3xl md:text-4xl font-extrabold sm:text-center px-4">
                 <span className="text-red-600">3-Level Quality Control</span>
                 <span className="text-indigo-900"> on Every Batch.</span>

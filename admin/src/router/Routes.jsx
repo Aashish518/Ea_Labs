@@ -6,6 +6,8 @@ import TestsManagement from "../pages/ManageTests";
 import ManageContacts from "../pages/ManageContacts";
 import ManageTestPackages from "../pages/ManageTestPackages";
 import TestMenu from "../pages/TestMenu";
+import AboutUs from "../pages/AboutUs";
+import ResourceAdmin from "../pages/Resource";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
             {
                 path: "testmenu",
                 element: <TestMenu />
+            },
+            {
+                path: "aboutus",
+                element: <AboutUs />
+            },
+            {
+                path: "resource",
+                element: <ResourceAdmin />
             }
         ],
     },

@@ -18,6 +18,8 @@ const contactUs = require("./routers/contactUs");
 const location = require("./routers/location");
 const testPackageCategory = require("./routers/testpackagecategory");
 const testMenu = require("./routers/testmenu");
+const aboutus=require("./routers/aboutus");
+const resource=require("./routers/resource");
 
 const cors = require("cors");
 
@@ -51,6 +53,8 @@ app.use("/api/contacts", contactUs);
 app.use("/api/location", location);
 app.use("/api/testpackagecategory", testPackageCategory);
 app.use("/api/testmenu", testMenu);
+app.use("/api/aboutus",aboutus);
+app.use("/api/resource",resource);
 
 
 

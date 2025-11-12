@@ -1,6 +1,7 @@
 import { Edit, Trash2 } from "lucide-react";
 import Badge from "./Badge";
 import Button from "./ui/common/Button";
+import Image from "./ui/common/Image";
 
 const Table = ({ headers, data, onEdit, onDelete, onRowClick, emptyMessage }) => {
   const isImageUrl = (value) => {
@@ -48,10 +49,10 @@ const Table = ({ headers, data, onEdit, onDelete, onRowClick, emptyMessage }) =>
                       {key === "status" ? (
                         <Badge variant={cell.variant}>{cell.label}</Badge>
                       ) : isImageUrl(cell) ? (
-                        <img
+                        <Image
                           src={cell}
                           alt={row.categoryName || "image"}
-                          className="w-12 h-12 object-cover rounded"
+                          className="w-12 h-12 rounded"
                         />
                       ) : (
                         cell

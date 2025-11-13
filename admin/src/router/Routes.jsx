@@ -8,6 +8,7 @@ import ManageTestPackages from "../pages/ManageTestPackages";
 import TestMenu from "../pages/TestMenu";
 import AboutUs from "../pages/AboutUs";
 import ResourceAdmin from "../pages/Resource";
+import LoginPage from "../pages/Login";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/sliderimages",
-                element:<SliderImages/>,
+                element: <SliderImages />,
             },
             {
                 path: "/managetests",
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/managecontacts",
-                element:<ManageContacts/>
+                element: <ManageContacts />
             },
             {
                 path: "managetestpackage",
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
                 element: <ResourceAdmin />
             }
         ],
+    },
+    {
+        path: "/login",
+        element: <LoginPage />,
     },
 ]);
 

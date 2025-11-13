@@ -4,7 +4,6 @@ import { ArrowLeft, Clock, FileText, Users, TestTube, CheckCircle, Package } fro
 import Button from "../components/ui/common/Button";
 import { getTestsByPackageId } from "../api/apis/packagecategory";
 import Loading from "../components/Loading";
-import Button from "../components/ui/common/Button"
 const PackageTestDetail = () => {
     const navigate = useNavigate();
     const { id } = useParams();

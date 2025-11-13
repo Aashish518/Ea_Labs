@@ -42,7 +42,85 @@ const AboutUs = () => {
     return (
         <section className="bg-gray-50 py-10 md:py-16">
             <div className="container mx-auto px-4 sm:px-11">
-                {/* Top Content Section */}
+                <section className=" bg-gray-50">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <h1 className="text-4xl md:text-5xl font-extrabold mb-20 text-center tracking-tight">
+                            About Us
+                        </h1>
+
+                        <div className="grid md:grid-cols-2 items-center gap-10 md:gap-16 mb-20">
+                            <div className="order-2 md:order-1">
+                                <p className="text-gray-700 text-lg md:text-xl leading-relaxed pl-4 py-2p-6 rounded-xl">
+                                    About EA Laboratories
+
+                                    Founded in 1991, EA Laboratories has been at the forefront of diagnostic excellence for over three decades. Built on a foundation of quality, precision, and patient-first care, we continue to set new benchmarks in the field of medical testing.
+
+                                    In 1992, we became India’s first laboratory to introduce inter-laboratory reference testing, connecting diagnostic centers across and beyond state borders.
+
+                                    Our spirit of innovation didn’t stop there. In 1998, EA Laboratories pioneered In Vitro Allergy Testing in India. Since then, we’ve tested over 9,45,000 samples and offered de-sensitization therapy and expert guidance to more than 2,40,000 patients, helping them breathe, live, and heal better.
+
+                                    Today, as a multi-specialty testing laboratory, EA Labs remains driven by one simple purpose to deliver accurate diagnostics, advanced technology, and assured care that patients and doctors can trust, every single time
+
+
+
+                                    About EA Laboratories
+
+                                    Founded in 1991, EA Laboratories has been at the forefront of diagnostic excellence for over three decades. Built on a foundation of quality, precision, and patient-first care, we continue to set new benchmarks in the field of medical testing.
+
+                                    In 1992, we became India’s first laboratory to introduce inter-laboratory reference testing, connecting diagnostic centers across and beyond state borders.
+
+                                    Our spirit of innovation didn’t stop there. In 1998, EA Laboratories pioneered In Vitro Allergy Testing in India. Since then, we’ve tested over 9,45,000 samples and offered de-sensitization therapy and expert guidance to more than 2,40,000 patients, helping them breathe, live, and heal better.
+
+                                    Today, as a multi-specialty testing laboratory, EA Labs remains driven by one simple purpose to deliver accurate diagnostics, advanced technology, and assured care that patients and doctors can trust, every single time
+                                    Turn on screen reader support
+                                    To enable screen reader support, press Ctrl+Alt+Z To learn about keyboard shortcuts, press Ctrl+slashAnonymous Blobfish has left the document.
+                                </p>
+                            </div>
+
+                            <div
+                                className="flex justify-center order-1 md:order-2"
+                            >
+                                <div>
+                                    <img
+                                        src="/images/aboutus-hero.jpg"
+                                        alt="Our Team"
+                                        className="w-full max-w-md h-auto rounded-2xl object-cover transform scale-[0.98]"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className=" rounded-3xl p-8 md:p-12 mb-20">
+                            <h2 className="text-3xl font-bold mb-10 text-center">
+                                Our Mission & Our Vision
+                            </h2>
+                            <div className="grid md:grid-cols-2 gap-12 items-start">
+                                {/* Mission */}
+                                <div className="p-6 bg-blue-50 rounded-2xl border border-blue-200">
+                                    <h2 className="text-3xl font-bold text-blue-600 mb-4 flex items-center">
+                                        <svg className="w-6 h-6 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                        Our Mission
+                                    </h2>
+                                    <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                                        To make diagnostics more than just data to make it a path to better living.
+                                        At EA Laboratories, we’re driven to deliver precise, reliable, and accessible testing that empowers doctors, reassures patients, and strengthens the trust between care and cure
+                                    </p>
+                                </div>
+
+                                {/* Vision */}
+                                <div className="p-6 bg-teal-50 rounded-2xl border border-teal-200">
+                                    <h2 className="text-3xl font-bold text-teal-600 mb-4 flex items-center">
+                                        <svg className="w-6 h-6 mr-3 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.504A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 4.504M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        Our Vision
+                                    </h2>
+                                    <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                                        To be India’s most trusted name in diagnostics, recognised for accuracy, compassion, and the pursuit of continuous scientific advancement.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:px-20">
                     {/* Left Image */}
                     <div className="w-full md:w-1/2">
@@ -105,8 +183,8 @@ const AboutUs = () => {
                                         {index % 2 !== 0 && (
                                             <span
                                                 className={`text-xl md:text-base font-medium absolute -top-10 md:-top-8 text-center whitespace-nowrap ${activeStep === index
-                                                        ? "text-blue-600"
-                                                        : "text-gray-500 group-hover:text-blue-300"
+                                                    ? "text-blue-600"
+                                                    : "text-gray-500 group-hover:text-blue-300"
                                                     }`}
                                             >
                                                 {step.title}
@@ -116,8 +194,8 @@ const AboutUs = () => {
                                         {/* Dot */}
                                         <div
                                             className={`w-6 h-6 rounded-full border-4 transition-all duration-300 ${activeStep === index
-                                                    ? "bg-blue-200 border-blue-600 scale-110"
-                                                    : "bg-white border-gray-400 group-hover:border-blue-300"
+                                                ? "bg-blue-200 border-blue-600 scale-110"
+                                                : "bg-white border-gray-400 group-hover:border-blue-300"
                                                 }`}
                                         ></div>
 
@@ -125,8 +203,8 @@ const AboutUs = () => {
                                         {index % 2 === 0 && (
                                             <span
                                                 className={`text-xl md:text-base font-medium absolute top-10 md:top-8 text-center whitespace-nowrap ${activeStep === index
-                                                        ? "text-blue-600"
-                                                        : "text-gray-500 group-hover:text-blue-300"
+                                                    ? "text-blue-600"
+                                                    : "text-gray-500 group-hover:text-blue-300"
                                                     }`}
                                             >
                                                 {step.title}

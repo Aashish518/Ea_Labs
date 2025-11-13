@@ -4,6 +4,7 @@ import Input from "../common/Input";
 import ImageUpload from "../common/ImageUpload";
 import Button from "../common/Button";
 import Textarea from "../common/Textarea";
+import Image from "../common/Image";
 
 const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
   const [title, setTitle] = useState("");
@@ -143,7 +144,7 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
         {/* Description */}
         <div className="mt-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Description
+            Description <span className="text-red-500">*</span>
           </label>
           <Textarea
             value={description}
@@ -151,6 +152,7 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
             placeholder="Enter description"
             className="w-full border border-gray-300 rounded-md p-2 text-sm"
             rows="3"
+            required
           ></Textarea>
         </div>
 
@@ -214,7 +216,7 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
           </label>
           <ImageUpload onUpload={handleThumbnailUpload} accept="image/*" />
           {thumbnailPreview && (
-            <img
+            <Image
               src={thumbnailPreview}
               alt="Thumbnail Preview"
               className="mt-3 w-24 h-24 rounded border"
@@ -224,15 +226,16 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
 
         {/* Publish */}
         <div className="mt-4 flex items-center gap-2">
-          <Input
+          <input
             id="isPublished"
             type="checkbox"
             checked={isPublished}
             onChange={(e) => setIsPublished(e.target.checked)}
             className="w-4 h-4 text-blue-600 border-gray-300 rounded"
+            required
           />
           <label htmlFor="isPublished" className="text-sm text-gray-700">
-            Publish this resource
+            Publish this resource <span className="text-red-500">*</span>
           </label>
         </div>
 

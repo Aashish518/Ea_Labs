@@ -155,6 +155,7 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                             value={formData.prerequisites}
                             onChange={(e) => setFormData({ ...formData, prerequisites: e.target.value })}
                             placeholder="e.g. Fasting required, No alcohol"
+                            required
                         />
                     </div>
                 </div>
@@ -173,6 +174,7 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                                         value={loc._id}
                                         checked={formData.locations.includes(loc._id)}
                                         onChange={() => handleLocationChange(loc._id)}
+                                        required
                                     />
                                     <span>{loc.locationName}</span>
                                 </label>
@@ -206,6 +208,7 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                             value={formData.include}
                             onChange={(e) => setFormData({ ...formData, include: e.target.value })}
                             placeholder="e.g. Blood Test, Urine Test"
+                            required
                         />
                     </div>
                     
@@ -219,6 +222,7 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                             value={formData.for}
                             onChange={(e) => setFormData({ ...formData, for: e.target.value })}
                             placeholder="e.g. Adults, Children"
+                            required
                         />
                     </div>
                     
@@ -233,6 +237,7 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                             type="Number"
                             onChange={(e) => setFormData({ ...formData, reportInTime: e.target.value })}
                             placeholder="( Only Number in hour )"
+                            required
                         />
                     </div>
                     
@@ -246,6 +251,7 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                             value={formData.testComponent}
                             onChange={(e) => setFormData({ ...formData, testComponent: e.target.value })}
                             placeholder="e.g. Hemoglobin, WBC Count"
+                            required
                         />
                     </div>
                 </div>

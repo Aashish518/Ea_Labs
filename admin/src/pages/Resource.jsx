@@ -149,7 +149,7 @@ const ResourceAdmin = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
           <StatCard
             title="Total Resources"
             value={resourceData.length}
@@ -162,10 +162,6 @@ const ResourceAdmin = () => {
             icon={Book}
             iconcolor="text-green-600"
           />
-        </div>
-
-        {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <StatCard
             title="Total Articles"
             value={resourceData.filter((r) => r.type === "Article").length}
@@ -185,6 +181,11 @@ const ResourceAdmin = () => {
             iconcolor="text-red-600"
           />
         </div>
+
+        {/* Stats Section */}
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          
+        </div> */}
 
         {/* Table */}
         <Card>

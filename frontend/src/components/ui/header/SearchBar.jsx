@@ -4,14 +4,18 @@ import Input from "../common/Input";
 import { searchDataAtom } from "../../../store/SearchStore";
 import { useState } from "react";
 import Button from "../common/Button";
+import { useNavigate } from "react-router-dom";
+
 
 const SearchBar = () => {
     const [searchData, setSearchData] = useAtom(searchDataAtom);
     const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
 
     const handleChange = (e) => setInputValue(e.target.value);
 
     const handleSearchClick = () => {
+            navigate("/");
             setSearchData(inputValue.trim());
     };
 

@@ -10,6 +10,7 @@ const resourceSchema = new mongoose.Schema(
     description: {
       type: String,
       trim: true,
+      required: true,
     },
     type: {
       type: String,
@@ -24,10 +25,12 @@ const resourceSchema = new mongoose.Schema(
     thumbnail: {
       type: String,
       trim: true,
+      required: true,
     },
     isPublished: {
       type: Boolean,
       default: true,
+      required: true,
     },
   },
   { timestamps: true }

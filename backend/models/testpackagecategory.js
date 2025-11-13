@@ -48,11 +48,13 @@ const testPackageSchema = new Schema(
         enable: {
             type: Boolean,
             default: true,
+            required: true,
         },
         tests: [
             {
                 type: String, // list of test names or ids
                 trim: true,
+                required: true,
             },
         ],
     },

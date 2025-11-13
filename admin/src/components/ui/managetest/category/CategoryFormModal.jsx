@@ -3,6 +3,7 @@ import Modal from "../../../layout/Modal";
 import Input from "../../common/Input";
 import Button from "../../common/Button";
 import ImageUpload from "../../common/ImageUpload";
+import Image from "../../common/Image";
 
 // Category Form Modal
 const CategoryFormModal = ({ isOpen, onClose, onSubmit, editData }) => {
@@ -66,7 +67,7 @@ const CategoryFormModal = ({ isOpen, onClose, onSubmit, editData }) => {
                     <ImageUpload onUpload={handleUpload} />
 
                     {preview && (
-                        <img
+                        <Image
                             src={preview}
                             alt="Preview"
                             className="mt-3 w-24 h-24 rounded border"

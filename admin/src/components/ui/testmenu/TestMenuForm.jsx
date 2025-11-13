@@ -101,7 +101,7 @@ export default function TestMenuFormModal({
                 {/* Test Name */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Test Name
+                        Test Name <span className="text-red-500">*</span>
                     </label>
                     <Input
                         name="name"
@@ -115,7 +115,7 @@ export default function TestMenuFormModal({
                 {/* Sample Type */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Sample Type
+                        Sample Type <span className="text-red-500">*</span>
                     </label>
                     <Input
                         name="sampleType"
@@ -124,6 +124,7 @@ export default function TestMenuFormModal({
                         onChange={handleChange}
                         placeholder="Enter sample type"
                         className="w-full border border-gray-300 rounded-md px-3 py-2"
+                        required
                     />
                     <datalist id="sampleType-list">
                         {(suggestions.sampleType || []).map((opt, i) => (
@@ -135,7 +136,7 @@ export default function TestMenuFormModal({
                 {/* Sample Volume */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Sample Volume
+                        Sample Volume <span className="text-red-500">*</span>
                     </label>
                     <Input
                         name="sampleVolume"
@@ -156,7 +157,7 @@ export default function TestMenuFormModal({
                 {/* Test Method */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Test Method
+                        Test Method <span className="text-red-500">*</span>
                     </label>
                     <Input
                         name="testMethod"
@@ -177,7 +178,7 @@ export default function TestMenuFormModal({
                 {/* Turnaround Time */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Turnaround Time
+                        Turnaround Time <span className="text-red-500">*</span>
                     </label>
                     <Input
                         name="turnaroundTime"
@@ -198,20 +199,21 @@ export default function TestMenuFormModal({
                 {/* Special Instructions */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Special Instructions
+                        Special Instructions <span className="text-red-500">*</span>
                     </label>
                     <Input
                         name="specialInstructions"
                         placeholder="Any special instructions"
                         value={form.specialInstructions}
                         onChange={handleChange}
+                        required
                     />
                 </div>
 
                 {/* Price */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Price
+                        Price <span className="text-red-500">*</span>
                     </label>
                     <Input
                         name="price"

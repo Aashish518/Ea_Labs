@@ -187,7 +187,7 @@ const TestPackageFormModal = ({ isOpen, onClose, onSubmit, editData, testsData =
         setName("");
         setPrice("");
         setSelectedTests([]);
-        setEnable(true); 
+        setEnable(true);
         setImage(null);
         setPreview(null);
         setSearchTerm("");
@@ -239,6 +239,7 @@ const TestPackageFormModal = ({ isOpen, onClose, onSubmit, editData, testsData =
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder="Search tests..."
+                        required
                     />
 
                     {/* Selected Tests */}
@@ -300,12 +301,14 @@ const TestPackageFormModal = ({ isOpen, onClose, onSubmit, editData, testsData =
                         type="checkbox"
                         checked={enable}
                         onChange={(e) => setEnable(e.target.checked)}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded"
+                        className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+                        required
                     />
-                    <label htmlFor="enable" className="text-sm text-gray-700">
-                        Enable this package
+                    <label htmlFor="enable" className="text-sm text-gray-700 cursor-pointer select-none">
+                        Enable this package <span className="text-red-500">*</span>
                     </label>
                 </div>
+
 
                 {/* Image Upload */}
                 <div className="mt-4">

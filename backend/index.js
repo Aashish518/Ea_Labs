@@ -26,8 +26,8 @@ const resource=require("./routers/resource");
 const cors = require("cors");
 
 const allowedOrigins = [
-    "http://localhost:5173", 
-    "http://localhost:5174",
+    process.env.USER_URL, 
+    process.env.ADMIN_URL,
 ];
 
 app.use(cors({

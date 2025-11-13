@@ -45,7 +45,7 @@ const ContactUs = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await mutation.mutateAsync(formData); 
+            const response = await mutation.mutateAsync(formData);
             AlertBox({
                 type: "success",
                 message: response?.message,
@@ -89,7 +89,7 @@ const ContactUs = () => {
                                 placeholder="Your Name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                required
+                                required={true}
                             />
                             <Input
                                 label="Company Name"
@@ -108,7 +108,7 @@ const ContactUs = () => {
                                 placeholder="Email ID"
                                 value={formData.email}
                                 onChange={handleChange}
-                                required
+                                required={true}
                             />
                             <Input
                                 label="Phone Number"
@@ -116,9 +116,17 @@ const ContactUs = () => {
                                 name="phone"
                                 placeholder="Phone Number"
                                 value={formData.phone}
-                                onChange={handleChange}
-                                required
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    // Allow only digits and limit to 10 characters
+                                    if (/^\d{0,10}$/.test(value)) {
+                                        handleChange(e);
+                                    }
+                                }}
+                                required={true}
+                                maxLength={10}
                             />
+
                         </div>
 
                         <Input
@@ -127,7 +135,7 @@ const ContactUs = () => {
                             placeholder="Address Line 1"
                             value={formData.address}
                             onChange={handleChange}
-                            required
+                            required={true}
                         />
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -137,16 +145,24 @@ const ContactUs = () => {
                                 placeholder="City"
                                 value={formData.city}
                                 onChange={handleChange}
-                                required
+                                required={true}
                             />
                             <Input
                                 label="Pincode"
                                 name="pincode"
                                 placeholder="Pincode"
                                 value={formData.pincode}
-                                onChange={handleChange}
-                                required
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    // Allow only digits and limit to 6 characters
+                                    if (/^\d{0,6}$/.test(value)) {
+                                        handleChange(e); // update only if valid
+                                    }
+                                }}
+                                required={true}
+                                maxLength={6}
                             />
+
                         </div>
 
                         <Button

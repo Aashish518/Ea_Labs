@@ -3,6 +3,7 @@ import Icon from "../../Icon";
 import Input from "../common/Input";
 import { searchDataAtom } from "../../../store/SearchStore";
 import { useState } from "react";
+import Button from "../common/Button";
 
 const SearchBar = () => {
     const [searchData, setSearchData] = useAtom(searchDataAtom);
@@ -26,7 +27,7 @@ const SearchBar = () => {
                 />
 
                 {/* Clickable search icon */}
-                <button
+                <Button
                     type="button"
                     onClick={handleSearchClick}
                     className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#203270] hover:text-[#16254f] transition"
@@ -35,7 +36,7 @@ const SearchBar = () => {
                         path="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                         className="w-5 h-5"
                     />
-                </button>
+                </Button>
             </div>
         </div>
     );

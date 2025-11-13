@@ -4,7 +4,7 @@ import { ArrowLeft, Clock, FileText, Users, TestTube, CheckCircle, Package } fro
 import Button from "../components/ui/common/Button";
 import { getTestsByPackageId } from "../api/apis/packagecategory";
 import Loading from "../components/Loading";
-
+import Button from "../components/ui/common/Button"
 const PackageTestDetail = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -94,19 +94,19 @@ const PackageTestDetail = () => {
         <div className="min-h-screen bg-gray-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Back Button */}
-                <button
+                <Button
                     onClick={handleBack}
                     className="flex items-center gap-2 mb-6 text-gray-700 hover:text-gray-900 font-medium transition-all hover:gap-3 group"
                 >
                     <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                     Back to Home
-                </button>
+                </Button>
 
                 {/* Header Section */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                         <div className="flex items-start gap-4">
-                            <div className="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <div className="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center shrink-0">
                                 <Package className="w-7 h-7 text-gray-700" />
                             </div>
                             <div>

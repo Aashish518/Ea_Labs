@@ -168,7 +168,7 @@ const TestFormModal = ({ isOpen, onClose, onSubmit, editData, categories, locati
                         {Array.isArray(locations) && locations.length > 0 ? (
                             locations.map((loc) => (
                                 <label key={loc._id} className="flex items-center gap-2">
-                                    <input
+                                    <Input
                                         type="checkbox"
                                         value={loc._id}
                                         checked={formData.locations.includes(loc._id)}

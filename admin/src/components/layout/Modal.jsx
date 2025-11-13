@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import Button from "../ui/common/Button"
 
 // Modal Component
 const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
@@ -22,12 +23,12 @@ const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
             >
                 <div className="flex items-center justify-between p-6 border-b border-gray-200">
                     <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
-                    <button
+                    <Button
                         onClick={onClose}
                         className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                     >
                         <X className="w-6 h-6 text-gray-500" />
-                    </button>
+                    </Button>
                 </div>
                 <div className="p-6 overflow-y-auto max-h-[calc(90vh-180px)]">
                     {children}

@@ -1,4 +1,5 @@
 import Modal from "../../layout/Modal";
+import Image from "../common/Image"
 
 const CategoryDetailsModal = ({ isOpen, onClose, category, testsData = [] }) => {
     if (!category) return null;
@@ -15,8 +16,8 @@ const CategoryDetailsModal = ({ isOpen, onClose, category, testsData = [] }) => 
                 <div className="flex gap-6 items-start border-b border-gray-200 pb-6">
                     {/* Category Image */}
                     {category.image && (
-                        <div className="flex-shrink-0">
-                            <img
+                        <div className="shrink-0">
+                            <Image
                                 src={`${import.meta.env.VITE_BACK_URL}${category.image}`}
                                 alt={category.name}
                                 className="w-24 h-24 object-cover border border-gray-300"
@@ -62,7 +63,7 @@ const CategoryDetailsModal = ({ isOpen, onClose, category, testsData = [] }) => 
                                     key={t._id}
                                     className="flex items-start gap-3 py-2 border-b border-gray-100 last:border-0"
                                 >
-                                    <span className="text-gray-400 text-sm min-w-[24px]">
+                                    <span className="text-gray-400 text-sm min-w-6">
                                         {index + 1}.
                                     </span>
                                     <p className="text-gray-700 text-sm">{t.name}</p>

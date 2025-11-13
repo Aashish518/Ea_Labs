@@ -75,7 +75,7 @@ const AboutUs = () => {
                                 </h2>
                                 <p
                                     className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed sm:leading-loose 
-             break-words whitespace-pre-line max-w-3xl w-full mx-auto text-left md:text-lef"
+             wrap-break-words whitespace-pre-line max-w-3xl w-full mx-auto text-left md:text-lef"
                                 >
                                     {steps[activeStep]?.description}
                                 </p>
@@ -91,14 +91,14 @@ const AboutUs = () => {
                     <div className="overflow-x-auto md:overflow-visible md:px-15">
                         <div className="relative min-w-max md:min-w-0 py-12">
                             {/* Line */}
-                            <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gray-300 -translate-y-1/2 z-0"></div>
+                            <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-300 -translate-y-1/2 z-0"></div>
 
                             {/* Steps */}
                             <div className="flex gap-16 md:justify-between relative z-10 px-4">
                                 {steps.map((step, index) => (
                                     <div
                                         key={step._id}
-                                        className="flex flex-col items-center cursor-pointer group relative shrink-0 min-w-[80px]"
+                                        className="flex flex-col items-center cursor-pointer group relative shrink-0 min-w-20"
                                         onClick={() => setActiveStep(index)}
                                     >
                                         {/* Title ABOVE for odd indices */}

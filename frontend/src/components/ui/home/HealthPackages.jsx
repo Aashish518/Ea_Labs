@@ -7,6 +7,7 @@ import { selectedLocationAtom } from "../../../store/LocationStore";
 import { searchDataAtom } from "../../../store/SearchStore";
 import { getCategoriesWithTests } from "../../../api/apis/testapi";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "../common/Image";
 
 const HealthPackages = ({ handletestdetail, matchdata }) => {
   const [selectedLocation] = useAtom(selectedLocationAtom);
@@ -114,7 +115,7 @@ const HealthPackages = ({ handletestdetail, matchdata }) => {
               >
                 <div className="bg-white p-1 rounded-full flex items-center justify-center shrink-0">
                   {cat.image && (
-                    <img
+                    <Image
                       src={`${import.meta.env.VITE_BACK_URL}/uploads/${cat.image}`}
                       alt={cat.categoryName}
                       className="h-8 w-8 sm:w-12 sm:h-12 rounded-full object-cover"

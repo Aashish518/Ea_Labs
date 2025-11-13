@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Icon from "../../Icon";
 import mapImage from "../../../assets/img/India Map.png";
+import Image from "../common/Image";
+import Button from "../common/Button";
 
 const locations = [
   {
@@ -126,14 +128,14 @@ export default function OurNetworks() {
               <li className="flex items-start gap-4">
                 <Icon
                   path={locationPath}
-                  className="h-6 w-6 text-red-500 flex-shrink-0"
+                  className="h-6 w-6 text-red-500 shrink-0"
                 />
                 <span className="text-gray-700">{selectedLocation.address}</span>
               </li>
               <li className="flex items-center gap-4">
                 <Icon
                   path={phonePath}
-                  className="h-6 w-6 text-red-500 flex-shrink-0"
+                  className="h-6 w-6 text-red-500 shrink-0"
                 />
                 <a
                   href={`tel:${selectedLocation.phone}`}
@@ -145,7 +147,7 @@ export default function OurNetworks() {
               <li className="flex items-center gap-4">
                 <Icon
                   path={emailPath}
-                  className="h-6 w-6 text-red-500 flex-shrink-0"
+                  className="h-6 w-6 text-red-500 shrink-0"
                 />
                 <a
                   href={`mailto:${selectedLocation.email}`}
@@ -165,13 +167,13 @@ export default function OurNetworks() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <img
+            <Image
               src={mapImage}
               alt="Map of our networks across India"
               className="w-full h-auto rounded-lg object-contain"
             />
             {locations.map((loc) => (
-              <button
+              <Button
                 key={loc.id}
                 onClick={() => setSelectedLocation(loc)}
                 style={{ top: loc.coords.top, left: loc.coords.left }}
@@ -186,7 +188,7 @@ export default function OurNetworks() {
                 <span className="absolute top-full left-1/2 -translate-x-1/2 mt-1 text-xs font-semibold text-indigo-900 whitespace-nowrap">
                   {loc.name}
                 </span>
-              </button>
+              </Button>
             ))}
 
           </div>

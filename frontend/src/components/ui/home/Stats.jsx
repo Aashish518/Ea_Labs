@@ -35,7 +35,7 @@ const Stats = () => (
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
             viewport={{ once: true }}
-            className={`bg-gradient-to-r ${stat.color} p-6 rounded-xl flex flex-col items-start justify-center shadow-lg`}
+            className={`bg-linear-to-r ${stat.color} p-6 rounded-xl flex flex-col items-start justify-center shadow-lg`}
             whileHover={{ scale: 1.05 }}
           >
             <p className="text-3xl font-bold">{stat.number}</p>

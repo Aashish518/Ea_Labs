@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Plus, FileText } from 'lucide-react';
-  import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import StatCard from '../components/StartCard';
 import Card from '../components/layout/Card';
 import Button from '../components/ui/common/Button';
 import Table from '../components/Table';
 import AboutUsFormModal from "../components/ui/aboutus/AboutUsFormModal";
 import AboutUsViewModal from '../components/ui/aboutus/AboutUsViewModal';
+import AlertBox from "../components/ui/common/AlertBox";
+import ConfirmBox from "../components/ui/common/ConfirmBox";
 import {
   getAllAboutUs,
   createAboutUs,
@@ -17,81 +19,123 @@ import {
 const AboutUsAdmin = () => {
   const queryClient = useQueryClient();
 
+  // ✅ Fetch data
   const { data: aboutData = [], isLoading } = useQuery({
     queryKey: ['aboutus'],
     queryFn: getAllAboutUs,
   });
 
-
+  // ✅ Create Mutation
   const createMutation = useMutation({
     mutationFn: createAboutUs,
-    onSuccess: () => queryClient.invalidateQueries(['aboutus']),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['aboutus']);
+      AlertBox({ type: 'success', message: 'Content added successfully!' });
+    },
+    onError: () => {
+      AlertBox({ type: 'error', message: 'Failed to add content!' });
+    },
   });
 
+  // ✅ Update Mutation
   const updateMutation = useMutation({
     mutationFn: ({ id, formData }) => updateAboutUs(id, formData),
-    onSuccess: () => queryClient.invalidateQueries(['aboutus']),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['aboutus']);
+      AlertBox({ type: 'success', message: 'Content updated successfully!' });
+    },
+    onError: () => {
+      AlertBox({ type: 'error', message: 'Failed to update content!' });
+    },
   });
 
+  // ✅ Delete Mutation
   const deleteMutation = useMutation({
     mutationFn: deleteAboutUs,
-    onSuccess: () => queryClient.invalidateQueries(['aboutus']),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['aboutus']);
+      AlertBox({ type: 'success', message: 'Content deleted successfully!' });
+    },
+    onError: () => {
+      AlertBox({ type: 'error', message: 'Failed to delete content!' });
+    },
   });
 
+  // ✅ Local state
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
+  // ✅ Handle edit
   const handleEdit = (id) => {
-    const item = aboutData.find(d => d._id === id);
+    const item = aboutData.find((d) => d._id === id);
     setSelectedItem(item);
     setIsFormModalOpen(true);
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
+  // ✅ Handle delete with confirmation
+  const handleDelete = async (id) => {
+    const confirmed = await ConfirmBox({
+      title: "Delete Section?",
+      message: "Are you sure you want to permanently delete this section?",
+      confirmText: "Yes, Delete",
+      cancelText: "Cancel",
+      icon: "warning",
+      important: true,
+      successMessage: "Section deleted successfully!",
+      successTitle: "Deleted!",
+    });
+
+    if (confirmed) {
       deleteMutation.mutate(id);
     }
   };
 
+  // ✅ Handle row click
   const handleRowClick = (id) => {
-    const item = aboutData.find(d => d._id === id);
+    const item = aboutData.find((d) => d._id === id);
     setSelectedItem(item);
     setIsDetailModalOpen(true);
   };
 
+  // ✅ Handle save for add/update
   const handleSave = async (data) => {
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('description', data.description);
     if (data.image) formData.append('image', data.image);
 
-    if (data._id) {
-      await updateMutation.mutateAsync({ id: data._id, formData });
-    } else {
-      await createMutation.mutateAsync(formData);
+    try {
+      if (data._id) {
+        await updateMutation.mutateAsync({ id: data._id, formData });
+      } else {
+        await createMutation.mutateAsync(formData);
+      }
+      setIsFormModalOpen(false);
+      setSelectedItem(null);
+    } catch (error) {
+      AlertBox({ type: 'error', message: 'Something went wrong!' });
     }
-
-    setIsFormModalOpen(false);
-    setSelectedItem(null);
   };
 
   if (isLoading) return <div className="p-6">Loading...</div>;
 
-  const tableData = aboutData.map(item => {
-  const shortDescription =
-    item.description?.length > 25
-      ? item.description.slice(0, 25) + "..."
-      : item.description;
+  // ✅ Prepare table data
+  const tableData = aboutData.map((item) => {
+    const shortDescription =
+      item.description?.length > 25
+        ? item.description.slice(0, 25) + "..."
+        : item.description;
 
-  return {
-    _id: item._id,
-    image: `${import.meta.env.VITE_BACK_URL}/${item.image}`,
-    title: item.title,
-    description: shortDescription,
-  };
-});
-
+    return {
+      _id: item._id,
+      image: item.image
+        ? `${import.meta.env.VITE_BACK_URL}/${item.image}`
+        : "/placeholder.png",
+      title: item.title,
+      description: shortDescription,
+    };
+  });
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -112,7 +156,7 @@ const AboutUsAdmin = () => {
           />
         </div>
 
-        {/* Table Card */}
+        {/* Table */}
         <Card>
           <div className="p-6 border-b border-gray-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">

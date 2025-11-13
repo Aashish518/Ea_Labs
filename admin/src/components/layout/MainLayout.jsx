@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { FlaskConical, Menu, MenuSquare , X, Home, Phone, Images, Package, UserRound } from "lucide-react";
+import { FlaskConical, Menu, MenuSquare , X, Home, Phone, Images, Package, UserRound, FileText } from "lucide-react";
 import SidebarItem from "../SidebarItem";
 import logoImg from "../../assets/img/EA-Lab_Logo_Web.png";
 import Image from "../ui/common/Image";
@@ -14,7 +14,7 @@ const sidebarItems = [
     { icon: Images, label: " Manage SliderImages", id: "sliderimages", path: "/sliderimages" },
     { icon: Package, label: "Manage Package", id: "managetestPackage", path: "/managetestpackage" },
     { icon: UserRound, label: "Manage AboutUs", id: "aboutus", path: "/aboutus" },
-    { icon: UserRound, label: "Manage resource", id: "resource", path: "/resource" },
+    { icon: FileText, label: "Manage resource", id: "resource", path: "/resource" },
 ];
 
 const MainLayout = () => {

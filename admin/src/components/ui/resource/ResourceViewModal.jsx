@@ -1,12 +1,13 @@
 import Modal from "../../layout/Modal";
 import Button from "../common/Button";
+import Image from "../common/Image";
 
 export default function ResourceViewModal({ item, onClose }) {
   if (!item) return null;
 
-  const fileUrl = `${import.meta.env.VITE_BACK_URL}/${item.fileUrl}`;
+  const fileUrl = `${import.meta.env.VITE_BACK_URL}${item.fileUrl}`;
   const thumbUrl = item.thumbnail
-    ? `${import.meta.env.VITE_BACK_URL}/${item.thumbnail}`
+    ? `${import.meta.env.VITE_BACK_URL}${item.thumbnail}`
     : null;
 
   return (
@@ -20,7 +21,7 @@ export default function ResourceViewModal({ item, onClose }) {
         {/* Thumbnail */}
         {thumbUrl && (
           <div className="flex justify-center">
-            <img
+            <Image
               src={thumbUrl}
               alt="Thumbnail"
               className="max-h-48 rounded-md shadow-md object-contain"
@@ -53,7 +54,7 @@ export default function ResourceViewModal({ item, onClose }) {
           </h3>
           <div className="border rounded-md p-3 bg-gray-50">
             {item.type === "Image" ? (
-              <img
+              <Image
                 src={fileUrl}
                 alt={item.title}
                 className="w-full max-h-96 object-contain rounded-md"

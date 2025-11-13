@@ -43,7 +43,7 @@ const FeatureCard = ({ icon, title, description, gradient, delay }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.7, delay }}
     viewport={{ once: true }}
-    className={`bg-gradient-to-br ${gradient} p-8 rounded-2xl flex flex-col items-start text-left text-white shadow-lg h-full`}
+    className={`bg-linear-to-br ${gradient} p-8 rounded-2xl flex flex-col items-start text-left text-white shadow-lg h-full`}
   >
     <div className="mb-4">{icon}</div>
     <h3 className="text-xl font-bold mb-2">{title}</h3>
@@ -54,7 +54,7 @@ const FeatureCard = ({ icon, title, description, gradient, delay }) => (
 // --- Main Component ---
 export default function WhyUs() {
   return (
-    <div className="w-full bg-gradient-to-r from-[#2c2a4a] to-[#3a3768] text-white py-16 px-4 sm:px-8">
+    <div className="w-full bg-linear-to-r from-[#2c2a4a] to-[#3a3768] text-white py-16 px-4 sm:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div

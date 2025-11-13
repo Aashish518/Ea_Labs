@@ -36,7 +36,7 @@ const PackageGrid = ({ packages, onSelect }) => {
                     variants={cardVariants}
                     className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden flex flex-col"
                 >
-                    <div className="p-5 flex-grow w-full">
+                    <div className="p-5 grow w-full">
                         <h3 className="text-xl font-bold mb-2 text-gray-800">
                             {pkg.name}
                         </h3>

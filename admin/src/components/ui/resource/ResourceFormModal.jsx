@@ -3,18 +3,19 @@ import Modal from "../../layout/Modal";
 import Input from "../common/Input";
 import ImageUpload from "../common/ImageUpload";
 import Button from "../common/Button";
+import Textarea from "../common/Textarea";
 
 const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("Article");
+  const [type, setType] = useState("Article"); // Article = PDF
   const [file, setFile] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
   const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [isPublished, setIsPublished] = useState(true);
 
-  // 🌀 Auto-fill when editing existing resource
+  // 🌀 Auto-fill when editing
   useEffect(() => {
     if (initialData) {
       setTitle(initialData.title || "");
@@ -22,17 +23,32 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
       setType(initialData.type || "Article");
       setIsPublished(initialData.isPublished ?? true);
 
-      // ✅ Show existing thumbnail preview
+      // ✅ Thumbnail preview
       setThumbnailPreview(
         initialData.thumbnail
-          ? `${import.meta.env.VITE_BACK_URL}/${initialData.thumbnail}`
+          ? `${import.meta.env.VITE_BACK_URL}${initialData.thumbnail}`
           : null
       );
 
-      // ✅ Show existing file preview if it's image or video
-      if (initialData.type === "Image" || initialData.type === "Video") {
-        setFilePreview(`${import.meta.env.VITE_BACK_URL}/${initialData.fileUrl}`);
+      // ✅ File preview
+      if (initialData.fileUrl) {
+        const baseUrl = import.meta.env.VITE_BACK_URL?.replace(/\/$/, "");
+        const filePath = initialData.fileUrl.replace(/^\//, "");
+        const previewUrl = `${baseUrl}/${filePath}`;
+        setFilePreview(previewUrl);
+
+        // guess mime type for preview
+        const ext = initialData.fileUrl.split(".").pop().toLowerCase();
+        let mimeType = "";
+        if (["jpg", "jpeg", "png", "gif", "webp"].includes(ext))
+          mimeType = "image/*";
+        else if (["mp4", "webm", "mov"].includes(ext))
+          mimeType = "video/*";
+        else if (ext === "pdf") mimeType = "application/pdf";
+
+        setFile({ name: initialData.fileUrl, type: mimeType });
       } else {
+        setFile(null);
         setFilePreview(null);
       }
     } else {
@@ -40,7 +56,7 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
     }
   }, [initialData]);
 
-  // 🧹 Reset form after submit or close
+  // 🧹 Reset
   const resetForm = () => {
     setTitle("");
     setDescription("");
@@ -52,28 +68,29 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
     setIsPublished(true);
   };
 
-  // 📂 File upload (resource file)
+  // 📂 File Upload
   const handleFileUpload = (files) => {
-    const uploadedFile = files[0];
+    const uploadedFile = files?.[0];
+    if (!uploadedFile) return;
+
     setFile(uploadedFile);
 
-    if (uploadedFile && uploadedFile.type.startsWith("image")) {
-      setFilePreview(URL.createObjectURL(uploadedFile));
-    } else if (uploadedFile && uploadedFile.type.startsWith("video")) {
-      setFilePreview(URL.createObjectURL(uploadedFile));
-    } else {
-      setFilePreview(null);
-    }
+    // Auto-set type if not chosen manually
+    if (uploadedFile.type.startsWith("image/")) setType("Image");
+    else if (uploadedFile.type.startsWith("video/")) setType("Video");
+    else if (uploadedFile.type === "application/pdf") setType("Article");
+
+    setFilePreview(URL.createObjectURL(uploadedFile));
   };
 
-  // 🖼️ Thumbnail upload
+  // 🖼️ Thumbnail Upload
   const handleThumbnailUpload = (files) => {
     const uploadedThumb = files[0];
     setThumbnail(uploadedThumb);
     setThumbnailPreview(URL.createObjectURL(uploadedThumb));
   };
 
-  // 💾 Submit handler
+  // 💾 Submit
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -84,14 +101,20 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
     formData.append("isPublished", isPublished);
     if (file) formData.append("file", file);
     if (thumbnail) formData.append("thumbnail", thumbnail);
-
     if (initialData?._id) formData.append("_id", initialData._id);
 
     onSubmit(Object.fromEntries(formData));
-
     resetForm();
     onClose();
   };
+
+  // Dynamic accepted types for uploader
+  const acceptedTypes =
+    type === "Image"
+      ? "image/*"
+      : type === "Video"
+      ? "video/*"
+      : "application/pdf";
 
   return (
     <Modal
@@ -122,13 +145,13 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Description
           </label>
-          <textarea
+          <Textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter description"
             className="w-full border border-gray-300 rounded-md p-2 text-sm"
             rows="3"
-          ></textarea>
+          ></Textarea>
         </div>
 
         {/* Type */}
@@ -142,8 +165,7 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
             className="w-full border border-gray-300 rounded-md p-2 text-sm"
             required
           >
-            <option value="Article">Article</option>
-            <option value="PDF">PDF</option>
+            <option value="Article">Article (PDF)</option>
             <option value="Image">Image</option>
             <option value="Video">Video</option>
           </select>
@@ -154,21 +176,28 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Resource File <span className="text-red-500">*</span>
           </label>
-          <ImageUpload onUpload={handleFileUpload} />
-          {filePreview && (
+          <ImageUpload onUpload={handleFileUpload} accept={acceptedTypes} />
+          {filePreview && file && (
             <div className="mt-3">
-              {type === "Image" ? (
+              {file.type.startsWith("image/") ? (
                 <img
                   src={filePreview}
                   alt="Preview"
                   className="w-32 h-32 rounded border"
                 />
-              ) : type === "Video" ? (
+              ) : file.type.startsWith("video/") ? (
                 <video
                   src={filePreview}
                   controls
                   className="w-64 h-36 rounded border"
                 />
+              ) : file.type === "application/pdf" ? (
+                <iframe
+                  src={filePreview}
+                  title="PDF Preview"
+                  className="w-64 h-64 border rounded"
+                  allow="fullscreen"
+                ></iframe>
               ) : (
                 <p className="text-gray-600 text-sm mt-2">
                   File uploaded or linked
@@ -183,7 +212,7 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Thumbnail <span className="text-red-500">*</span>
           </label>
-          <ImageUpload onUpload={handleThumbnailUpload} />
+          <ImageUpload onUpload={handleThumbnailUpload} accept="image/*" />
           {thumbnailPreview && (
             <img
               src={thumbnailPreview}
@@ -193,9 +222,9 @@ const ResourceFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
           )}
         </div>
 
-        {/* Publish Toggle */}
+        {/* Publish */}
         <div className="mt-4 flex items-center gap-2">
-          <input
+          <Input
             id="isPublished"
             type="checkbox"
             checked={isPublished}

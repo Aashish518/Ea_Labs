@@ -117,7 +117,7 @@ export default function TestMenuFormModal({
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Sample Type
                     </label>
-                    <input
+                    <Input
                         name="sampleType"
                         list="sampleType-list"
                         value={form.sampleType}
@@ -137,7 +137,7 @@ export default function TestMenuFormModal({
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Sample Volume
                     </label>
-                    <input
+                    <Input
                         name="sampleVolume"
                         list="sampleVolume-list"
                         value={form.sampleVolume}
@@ -158,7 +158,7 @@ export default function TestMenuFormModal({
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Test Method
                     </label>
-                    <input
+                    <Input
                         name="testMethod"
                         list="testMethod-list"
                         value={form.testMethod}
@@ -179,7 +179,7 @@ export default function TestMenuFormModal({
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                         Turnaround Time
                     </label>
-                    <input
+                    <Input
                         name="turnaroundTime"
                         list="turnaroundTime-list"
                         value={form.turnaroundTime}

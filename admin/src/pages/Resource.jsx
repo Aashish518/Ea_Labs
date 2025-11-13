@@ -7,6 +7,9 @@ import Button from "../components/ui/common/Button";
 import Table from "../components/Table";
 import ResourceFormModal from "../components/ui/resource/ResourceFormModal";
 import ResourceViewModal from "../components/ui/resource/ResourceViewModal";
+import AlertBox from "../components/ui/common/AlertBox";
+import ConfirmBox from "../components/ui/common/ConfirmBox";
+
 import {
   getAllResources,
   createResource,
@@ -26,19 +29,37 @@ const ResourceAdmin = () => {
   // ✅ Create resource
   const createMutation = useMutation({
     mutationFn: createResource,
-    onSuccess: () => queryClient.invalidateQueries(["resources"]),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["resources"]);
+      AlertBox({ type: "success", message: "Resource added successfully!" });
+    },
+    onError: () => {
+      AlertBox({ type: "error", message: "Failed to add resource!" });
+    },
   });
 
   // ✅ Update resource
   const updateMutation = useMutation({
     mutationFn: ({ id, formData }) => updateResource(id, formData),
-    onSuccess: () => queryClient.invalidateQueries(["resources"]),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["resources"]);
+      AlertBox({ type: "success", message: "Resource updated successfully!" });
+    },
+    onError: () => {
+      AlertBox({ type: "error", message: "Failed to update resource!" });
+    },
   });
 
   // ✅ Delete resource
   const deleteMutation = useMutation({
     mutationFn: deleteResource,
-    onSuccess: () => queryClient.invalidateQueries(["resources"]),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["resources"]);
+      AlertBox({ type: "success", message: "Resource deleted successfully!" });
+    },
+    onError: () => {
+      AlertBox({ type: "error", message: "Failed to delete resource!" });
+    },
   });
 
   // ✅ State for modals
@@ -53,9 +74,20 @@ const ResourceAdmin = () => {
     setIsFormModalOpen(true);
   };
 
-  // ✅ Handle delete
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this resource?")) {
+  // ✅ Handle delete with confirmation
+  const handleDelete = async (id) => {
+    const confirmed = await ConfirmBox({
+      title: "Delete Resource?",
+      message: "Are you sure you want to delete this resource permanently?",
+      confirmText: "Yes, Delete",
+      cancelText: "Cancel",
+      icon: "warning",
+      important: true,
+      successMessage: "Resource deleted successfully!",
+      successTitle: "Deleted!",
+    });
+
+    if (confirmed) {
       deleteMutation.mutate(id);
     }
   };
@@ -67,7 +99,7 @@ const ResourceAdmin = () => {
     setIsDetailModalOpen(true);
   };
 
-  // ✅ Handle create/update save
+  // ✅ Handle create/update save with alert
   const handleSave = async (data) => {
     const formData = new FormData();
     formData.append("title", data.title);
@@ -78,14 +110,17 @@ const ResourceAdmin = () => {
     if (data.file) formData.append("file", data.file);
     if (data.thumbnail) formData.append("thumbnail", data.thumbnail);
 
-    if (data._id) {
-      await updateMutation.mutateAsync({ id: data._id, formData });
-    } else {
-      await createMutation.mutateAsync(formData);
+    try {
+      if (data._id) {
+        await updateMutation.mutateAsync({ id: data._id, formData });
+      } else {
+        await createMutation.mutateAsync(formData);
+      }
+      setIsFormModalOpen(false);
+      setSelectedItem(null);
+    } catch (error) {
+      AlertBox({ type: "error", message: "Something went wrong!" });
     }
-
-    setIsFormModalOpen(false);
-    setSelectedItem(null);
   };
 
   if (isLoading) return <div className="p-6">Loading...</div>;
@@ -94,7 +129,7 @@ const ResourceAdmin = () => {
   const tableData = resourceData.map((item) => ({
     _id: item._id,
     image: item.thumbnail
-      ? `${import.meta.env.VITE_BACK_URL}/${item.thumbnail}`
+      ? `${import.meta.env.VITE_BACK_URL}${item.thumbnail}`
       : "/placeholder.png",
     title: item.title,
     description: item.type,
@@ -114,7 +149,7 @@ const ResourceAdmin = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <StatCard
             title="Total Resources"
             value={resourceData.length}
@@ -127,8 +162,24 @@ const ResourceAdmin = () => {
             icon={Book}
             iconcolor="text-green-600"
           />
+        </div>
+
+        {/* Stats Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <StatCard
-            title="Videos"
+            title="Total Articles"
+            value={resourceData.filter((r) => r.type === "Article").length}
+            icon={FileText}
+            iconcolor="text-blue-600"
+          />
+          <StatCard
+            title="Total Images"
+            value={resourceData.filter((r) => r.type === "Image").length}
+            icon={Book}
+            iconcolor="text-green-600"
+          />
+          <StatCard
+            title="Total Videos"
             value={resourceData.filter((r) => r.type === "Video").length}
             icon={Video}
             iconcolor="text-red-600"

@@ -1,6 +1,5 @@
 import api from "../config/config";
 
-// API call
 export const getCategoriesWithTests = async (locationName) => {
     const { data } = await api.get(`/api/tests/bylocation?locationName=${locationName}`);
     return data;

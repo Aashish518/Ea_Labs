@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import Icon from "../../Icon";
 import Button from "../common/Button";
 import { getImages } from "../../../api/apis/sliderimageapi";
+import Button from "../common/Button";
+import Image from "../common/Image";
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
@@ -90,14 +92,14 @@ const Hero = () => {
       relative w-full overflow-hidden
       h-[400px]
       md:h-auto
-      md:aspect-[32/12]
-      lg:aspect-[3940/1400]
+      md:aspect-32/12
+      lg:aspect-3940/1400
     "
     >
       <div className="relative w-full mx-auto h-full overflow-hidden">
         {/* ✅ Render current and next slides for smooth transition */}
         {currentSlides.length > 0 && currentSlides.map((slide, index) => (
-          <img
+          <Image
             key={index}
             src={slide}
             alt={`Slide ${index + 1}`}
@@ -108,7 +110,7 @@ const Hero = () => {
           />
         ))}
 
-        {/* Prev button */}
+        {/* Prev Button */}
         {currentSlides.length > 1 && (
           <Button
             onClick={prevSlide}
@@ -119,7 +121,7 @@ const Hero = () => {
           </Button>
         )}
 
-        {/* Next button */}
+        {/* Next Button */}
         {currentSlides.length > 1 && (
           <Button
             onClick={nextSlide}
@@ -134,7 +136,7 @@ const Hero = () => {
         {currentSlides.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
             {currentSlides.map((_, index) => (
-              <button
+              <Button
                 key={index}
                 onClick={() => setCurrent(index)}
                 className={`w-2 h-2 rounded-full transition-all ${

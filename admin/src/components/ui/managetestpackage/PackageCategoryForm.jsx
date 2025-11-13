@@ -250,13 +250,13 @@ const TestPackageFormModal = ({ isOpen, onClose, onSubmit, editData, testsData =
                                     className="bg-blue-100 text-blue-700 text-sm px-2 py-1 rounded-full flex items-center gap-1"
                                 >
                                     {test.name}
-                                    <button
+                                    <Button
                                         type="button"
                                         className="text-red-500 hover:text-red-700"
                                         onClick={() => toggleTestSelection(test)}
                                     >
                                         ✕
-                                    </button>
+                                    </Button>
                                 </span>
                             ))}
                         </div>

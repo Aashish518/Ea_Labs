@@ -5,11 +5,14 @@ import Icon from "../../Icon";
 import { getLocations } from "../../../api/apis/location";
 import { useAtom } from "jotai";
 import { selectedLocationAtom } from "../../../store/LocationStore";
+import NiceAlert from "../common/Alertbbox";
 
 const Location = () => {
     const [open, setOpen] = useState(false);
     const [hasUserSelected, setHasUserSelected] = useState(false);
     const [selectedLocation, setSelectedLocation] = useAtom(selectedLocationAtom);
+    const [alertMsg, setAlertMsg] = useState(null);
+
 
     const { data: locations = [], isLoading, isError } = useQuery({
         queryKey: ["locations"],
@@ -38,7 +41,7 @@ const Location = () => {
 
                     try {
                         const res = await fetch(
-                            `http://localhost:7000/api/location/reverse-geocode?lat=${latitude}&lon=${longitude}`
+                            `${import.meta.env.VITE_BACK_URL}/api/location/reverse-geocode?lat=${latitude}&lon=${longitude}`
                         );
                         const data = await res.json();
                         const city = data.city;
@@ -52,9 +55,9 @@ const Location = () => {
 
                         setSelectedLocation(finalLoc);
                         if (matchedLoc) {
-                            alert(`Your current location is ${finalLoc.locationName}. If you want, you can change it.`);
+                            setAlertMsg(`Your current location is ${finalLoc.locationName}. If you want, you can change it.`);
                         } else {
-                            alert(`Your current city "${city}" does not match our service locations. Default location selected: ${finalLoc.locationName}.`);
+                            setAlertMsg(`Your current city "${city}" does not match our service locations. Default location selected: ${finalLoc.locationName}.`);
                         }
                     } catch (err) {
                         console.error("Reverse geocoding error:", err);
@@ -63,7 +66,7 @@ const Location = () => {
                     }
                 },
                 () => {
-                    alert("Please turn on your device's location or select a location manually to view tests available in your area.");
+                    setAlertMsg("Please turn on your device's location or select a location manually to view tests available in your area.");
                     const fallback = locations.find((loc) => loc.locationName === "Ahmedabad") || locations[0];
                     setSelectedLocation(fallback);
                 }
@@ -124,6 +127,14 @@ const Location = () => {
                         </div>
                     ))}
             </div>
+            {alertMsg && (
+  <NiceAlert
+    message={alertMsg}
+    onClose={() => setAlertMsg(null)}
+    type="info"
+  />
+)}
+
         </div>
     );
 };

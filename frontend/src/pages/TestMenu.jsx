@@ -26,6 +26,14 @@ const TestMenu = () => {
         }
     }, [data, activeLetter]);
 
+    // ⭐ Auto scroll to top when page changes or alphabet changes
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }, [currentPage, activeLetter]);
+
     const handleLetterSelect = (letter) => {
         setActiveLetter(letter);
         setCurrentPage(1);
@@ -99,28 +107,46 @@ const TestMenu = () => {
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                    <div className="flex justify-center items-center gap-3 mt-6">
+                    <motion.div
+                        className="flex justify-center items-center mt-8 space-x-3"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3, duration: 0.6 }}
+                        viewport={{ once: true }}
+                    >
+                        {/* Prev */}
                         <Button
                             onClick={() => goToPage(currentPage - 1)}
                             disabled={currentPage === 1}
-                            className="px-5 rounded-lg font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                            className={`rounded-full px-5 py-2 border transition-all ${
+                                currentPage === 1
+                                    ? "text-gray-400 border-gray-300 cursor-not-allowed"
+                                    : "text-red-600 border-red-600 hover:bg-red-50"
+                            }`}
                         >
                             Prev
                         </Button>
 
-                        <span className="px-4 text-gray-600 font-medium text-sm">
-                            {currentPage} of {totalPages}
+                        {/* Page Count */}
+                        <span className="text-gray-600 font-medium text-sm">
+                            {currentPage} / {totalPages}
                         </span>
 
+                        {/* Next */}
                         <Button
                             onClick={() => goToPage(currentPage + 1)}
                             disabled={currentPage === totalPages}
-                            className="px-5 rounded-lg font-medium text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                            className={`rounded-full px-5 py-2 border transition-all ${
+                                currentPage === totalPages
+                                    ? "text-gray-400 border-gray-300 cursor-not-allowed"
+                                    : "text-red-600 border-red-600 hover:bg-red-50"
+                            }`}
                         >
                             Next
                         </Button>
-                    </div>
+                    </motion.div>
                 )}
+
             </div>
 
             {/* Modal */}

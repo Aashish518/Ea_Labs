@@ -10,10 +10,6 @@ const Header = () => (
     <div className="container mx-auto px-3 sm:px-6 lg:px-8">
       {/* Top Section */}
       <div className="flex items-center justify-between h-16 sm:h-20">
-        {/* Mobile Nav Icon */}
-        <div className="flex sm:hidden">
-          <NavBar />
-        </div>
 
         {/* Logo */}
         <div className="flex justify-center sm:justify-start flex-1 sm:flex-none">
@@ -28,6 +24,9 @@ const Header = () => (
         {/* Right Section: Location + Social Icons */}
         <div className="flex items-center justify-end flex-1 sm:flex-none space-x-2 sm:space-x-4">
           <Location />
+          <div className="flex sm:hidden">
+            <NavBar />
+          </div>
           <div className="hidden sm:block">
             <SocialIcons />
           </div>

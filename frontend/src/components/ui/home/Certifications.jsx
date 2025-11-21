@@ -53,7 +53,7 @@ const Certifications = () => (
                   ? "ICMR Certified"
                   : "NABL Certified"
               }
-              className="h-16 sm:h-20 md:h-28 w-auto"
+              className="h-16 sm:h-20 md:h-20 w-auto"
             />
           </motion.div>
         ))}

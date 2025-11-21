@@ -118,7 +118,7 @@ const HealthPackages = ({ handletestdetail, matchdata }) => {
                     <Image
                       src={`${import.meta.env.VITE_BACK_URL}/uploads/${cat.image}`}
                       alt={cat.categoryName}
-                      className="h-8 w-8 sm:w-12 sm:h-12 rounded-full object-cover"
+                      className="h-8 w-8 lg:w-12 lg:h-12 rounded-full object-cover"
                     />
                   )}
                 </div>

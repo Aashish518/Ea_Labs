@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Button from "../components/ui/common/Button";
@@ -10,6 +10,9 @@ const TestDetail = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("overview");
 
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
     // Fetch test by id
     const { data: test, isLoading, isError } = useQuery({
         queryKey: ["test", id],
@@ -62,7 +65,7 @@ const TestDetail = () => {
 
                         {/* Tabs */}
                         <div className="border-b border-gray-200 mb-6">
-                            <nav className="-mb-px flex overflow-x-auto space-x-8" aria-label="Tabs">
+                            <nav className="-mb-px flex overflow-x-auto space-x-8 pb-2" aria-label="Tabs">
                                 <Button
                                     onClick={() => setActiveTab("overview")}
                                     className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === "overview"

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Icon from "../../Icon";
 import Button from "../common/Button";
@@ -8,6 +8,9 @@ const Hero = () => {
   const [current, setCurrent] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
+  // Interval reference for reset on manual user click
+  const intervalRef = useRef(null);
+
   const { data: images = [], isLoading, isError } = useQuery({
     queryKey: ["slides"],
     queryFn: getImages,
@@ -15,58 +18,67 @@ const Hero = () => {
 
   const backendURL = import.meta.env.VITE_BACK_URL;
 
-  // ✅ Separate desktop and mobile slides
-  const desktopSlides = images.flatMap((img) => 
-    img.desktopScreenMedia
-      ?.filter((m) => m.isVisible)
-      .map((m) => backendURL + m.url) || []
+  // Desktop slides
+  const desktopSlides = images.flatMap(
+    (img) =>
+      img.desktopScreenMedia
+        ?.filter((m) => m.isVisible)
+        .map((m) => backendURL + m.url) || []
   );
 
-  const mobileSlides = images.flatMap((img) => 
-    img.mobileScreenMedia
-      ?.filter((m) => m.isVisible)
-      .map((m) => backendURL + m.url) || []
+  // Mobile slides
+  const mobileSlides = images.flatMap(
+    (img) =>
+      img.mobileScreenMedia
+        ?.filter((m) => m.isVisible)
+        .map((m) => backendURL + m.url) || []
   );
 
-  // ✅ Detect screen size
+  // Detect screen size
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // ✅ Get current slides based on screen size
   const currentSlides = isMobile ? mobileSlides : desktopSlides;
 
-  // ✅ Reset current index when switching between mobile/desktop
   useEffect(() => {
     setCurrent(0);
   }, [isMobile]);
 
-  // ✅ Single Auto Slide Effect
-  useEffect(() => {
-    if (currentSlides.length === 0) return;
+  // Function to start auto sliding timer
+  const startAutoSlide = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
 
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setCurrent((prev) => (prev + 1) % currentSlides.length);
     }, 3000);
+  };
 
-    return () => clearInterval(interval);
+  // Start auto slider and clean up
+  useEffect(() => {
+    if (currentSlides.length === 0) return;
+    startAutoSlide();
+
+    return () => clearInterval(intervalRef.current);
   }, [currentSlides.length]);
 
+  // Manual slide handlers (restart timer)
   const nextSlide = () => {
     if (currentSlides.length === 0) return;
     setCurrent((prev) => (prev + 1) % currentSlides.length);
+    startAutoSlide(); // Restart timer
   };
 
   const prevSlide = () => {
     if (currentSlides.length === 0) return;
     setCurrent((prev) => (prev - 1 + currentSlides.length) % currentSlides.length);
+    startAutoSlide(); // Restart timer
   };
 
   if (isLoading)
@@ -83,7 +95,6 @@ const Hero = () => {
       </div>
     );
 
-
   return (
     <section
       className="
@@ -95,20 +106,21 @@ const Hero = () => {
     "
     >
       <div className="relative w-full mx-auto h-full overflow-hidden">
-        {/* ✅ Render current and next slides for smooth transition */}
-        {currentSlides.length > 0 && currentSlides.map((slide, index) => (
-          <img
-            key={index}
-            src={slide}
-            alt={`Slide ${index + 1}`}
-            className="absolute inset-0 w-full h-full transition-transform duration-1000 ease-in-out"
-            style={{
-              transform: `translateX(${(index - current) * 100}%)`
-            }}
-          />
-        ))}
+        {/* Slides */}
+        {currentSlides.length > 0 &&
+          currentSlides.map((slide, index) => (
+            <img
+              key={index}
+              src={slide}
+              alt={`Slide ${index + 1}`}
+              className="absolute inset-0 w-full h-full transition-transform duration-1000 ease-in-out"
+              style={{
+                transform: `translateX(${(index - current) * 100}%)`,
+              }}
+            />
+          ))}
 
-        {/* Prev button */}
+        {/* Prev Button */}
         {currentSlides.length > 1 && (
           <Button
             onClick={prevSlide}
@@ -119,7 +131,7 @@ const Hero = () => {
           </Button>
         )}
 
-        {/* Next button */}
+        {/* Next Button */}
         {currentSlides.length > 1 && (
           <Button
             onClick={nextSlide}
@@ -130,15 +142,18 @@ const Hero = () => {
           </Button>
         )}
 
-        {/* Slide indicators */}
+        {/* Slide Indicators */}
         {currentSlides.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
             {currentSlides.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrent(index)}
+                onClick={() => {
+                  setCurrent(index);
+                  startAutoSlide();
+                }}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  current === index ? 'bg-white w-6' : 'bg-white/50'
+                  current === index ? "bg-white w-6" : "bg-white/50"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />

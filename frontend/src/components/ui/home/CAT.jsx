@@ -15,10 +15,12 @@ const CTA = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-[#03ACEF] text-white"
+            className="bg-[#03ACEF] text-white overflow-hidden"   // 🔥 Prevent scroll issue
         >
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <div className="container mx-auto px-4 sm:px-6 py-12 overflow-hidden">
+                <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left overflow-hidden">
+
+                    {/* Text */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -26,12 +28,15 @@ const CTA = () => {
                         viewport={{ once: true }}
                         className="mb-6 md:mb-0"
                     >
-                        <h2 className="text-2xl font-bold">
+                        <h2 className="text-2xl md:text-3xl font-bold leading-snug">
                             Because peace of mind starts with clarity.
                         </h2>
-                        <p>Book your test now for accurate, doctor-ready reports.</p>
+                        <p className="text-sm md:text-base mt-2">
+                            Book your test now for accurate, doctor-ready reports.
+                        </p>
                     </motion.div>
 
+                    {/* Button */}
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -45,6 +50,7 @@ const CTA = () => {
                             Book a test
                         </Button>
                     </motion.div>
+
                 </div>
             </div>
         </motion.div>

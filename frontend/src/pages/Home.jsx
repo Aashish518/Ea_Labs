@@ -23,6 +23,10 @@ const Home = () => {
     const checkupRef = useRef(null);
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+
+    useEffect(() => {
         // ✅ Scroll when coming from another page with state
         if (location.state?.scrollToHealthPackages) {
             healthPackagesRef.current?.scrollIntoView({ behavior: "smooth" });

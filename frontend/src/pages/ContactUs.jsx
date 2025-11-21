@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import Button from "../components/ui/common/Button";
 import Input from "../components/ui/common/Input";
@@ -36,6 +36,10 @@ const ContactUs = () => {
         },
     });
 
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+
     // Handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -67,7 +71,7 @@ const ContactUs = () => {
                 <div className="flex items-center justify-center order-1 md:order-2">
                     <div className="w-full h-64 md:h-full bg-gray-100 rounded-lg flex items-center justify-center">
                         <Image
-                            src="http://localhost:7000/uploads/1762516502581.jpg"
+                            src={`${import.meta.env.VITE_BACK_URL}/uploads/1762516502581.jpg`}
                             alt="Contact Illustration"
                             className="rounded-lg h-full w-full"
                         />

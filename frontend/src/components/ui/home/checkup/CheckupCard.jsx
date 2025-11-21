@@ -15,13 +15,15 @@ const CheckupCard = ({ imageUrl, title, Price, onClick }) => (
 
         {/* Title & Price */}
         <div className="mt-3">
-            <p className="font-semibold text-gray-800 text-lg md:text-base group-hover:text-gray-900 transition-colors duration-200">
-                {title}
-            </p>
-            <p className="text-gray-600 text-xs md:text-sm font-medium mt-1">
-                {Price}
-            </p>
-        </div>
+  <p className="font-semibold text-gray-800 text-lg md:text-base group-hover:text-gray-900 transition-colors duration-200">
+    {title}
+  </p>
+
+  <p className="inline-block mt-1 px-3 py-1 border border-gray-400 rounded-md bg-white text-black md:text-sm font-medium">
+    {Price}
+  </p>
+</div>
+
     </div>
 );
 

@@ -114,7 +114,7 @@ export default function OurNetworks() {
         <div className="flex flex-col md:flex-row gap-10 items-center">
           {/* Left Side: Contact Card */}
           <motion.div
-            className="w-full md:w-1/3 bg-white/50 border border-purple-300 rounded-2xl p-8 shadow-lg backdrop-blur-sm"
+            className="w-full md:w-1/2 lg:w-1/3 bg-white/50 border border-purple-300 rounded-2xl p-8 shadow-lg backdrop-blur-sm"
             key={selectedLocation.id}
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}

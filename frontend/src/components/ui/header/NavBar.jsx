@@ -40,19 +40,19 @@ const NavBar = () => {
                     onClick={() => setIsOpen(!isOpen)}
                     className="text-gray-700 focus:outline-none"
                 >
-                    {isOpen ? <X size={28} /> : <Menu size={28} />}
+                    {isOpen ? <X size={20} /> : <Menu size={20} />}
                 </Button>
             </div>
 
             {/* Mobile Menu */}
             <div
-                className={`fixed top-0 left-0 w-full h-full bg-white shadow-md z-50 transform transition-all duration-700 ease-out ${isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-                    }`}
+                className={`fixed top-0 left-0 w-full h-full bg-white shadow-md z-50 transform transition-all duration-700 ease-out 
+    ${isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}
             >
                 {/* Close Button */}
                 <Button
                     onClick={() => setIsOpen(false)}
-                    className="absolute top-6 left-6 text-gray-700 focus:outline-none z-50"
+                    className="absolute top-6 right-6 text-gray-700 focus:outline-none z-50"
                 >
                     <X size={28} />
                 </Button>

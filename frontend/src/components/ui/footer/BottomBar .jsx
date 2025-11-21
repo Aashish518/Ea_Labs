@@ -1,13 +1,28 @@
-// components/Footer/BottomBar.jsx
 const BottomBar = () => (
-    <div className="mt-8 pt-8 border-t border-gray-700 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400">
-        <p>&copy; 2024 EA Labs. All rights reserved. Developed by Antinoob Solutions</p>
-        <div className="flex space-x-4 mt-4 sm:mt-0">
-            <a href="#" className="hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:text-white">User Policy</a>
-            <a href="#" className="hover:text-white">Terms & Condition</a>
-        </div>
+  <div
+    className="
+      mt-8 pt-8 border-t border-gray-700 
+      flex flex-col md:flex-row 
+      justify-between items-center 
+      text-sm text-gray-400 gap-4
+    "
+  >
+
+    {/* Links – show first on mobile, right side on desktop */}
+    <div className="flex flex-wrap gap-3 md:gap-4 justify-center md:order-2">
+      <a href="#" className="hover:text-white transition">Privacy Policy</a>
+      <a href="#" className="hover:text-white transition">User Policy</a>
+      <a href="#" className="hover:text-white transition">Terms &amp; Condition</a>
     </div>
+
+    {/* Copyright – second on mobile, left on desktop */}
+    <p className="text-center md:text-left md:order-1 leading-tight">
+      © 2024 EA Labs. All rights reserved.
+      <br />
+      Developed by Antinoob Solutions
+    </p>
+
+  </div>
 );
 
 export default BottomBar;

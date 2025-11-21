@@ -73,7 +73,7 @@ const CheckupSection = ({ title, matchdata }) => {
                             viewport={{ once: true }}
                         >
                             <CheckupCard
-                                imageUrl={`http://localhost:7000${checkup.image}`}
+                                imageUrl={`${import.meta.env.VITE_BACK_URL}${checkup.image}`}
                                 title={checkup.name}
                                 Price={`₹${checkup.price}`}
                                 onClick={() => handleCardClick(checkup._id)}

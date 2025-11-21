@@ -19,6 +19,7 @@ const Input = ({
     step,
     pattern,
     autoComplete = "off",
+    onKeyDown,
 }) => {
     return (
         <div className="flex flex-col">
@@ -51,6 +52,7 @@ const Input = ({
                 step={step}
                 pattern={pattern}
                 autoComplete={autoComplete}
+                onKeyDown={onKeyDown}
             />
         </div>
     );

@@ -4,9 +4,14 @@ import { ArrowLeft, Clock, FileText, Users, TestTube, CheckCircle, Package } fro
 import Button from "../components/ui/common/Button";
 import { getTestsByPackageId } from "../api/apis/packagecategory";
 import Loading from "../components/Loading";
+import { useEffect } from "react";
 const PackageTestDetail = () => {
     const navigate = useNavigate();
     const { id } = useParams();
+
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["tests", id],
@@ -102,30 +107,37 @@ const PackageTestDetail = () => {
                 </Button>
 
                 {/* Header Section */}
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                        <div className="flex items-start gap-4">
-                            <div className="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center shrink-0">
-                                <Package className="w-7 h-7 text-gray-700" />
+                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6 md:mb-8">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6">
+
+                        <div className="flex items-start gap-3 md:gap-4">
+                            <div className="w-8 h-8 md:w-14 md:h-14 bg-gray-100 rounded-xl flex items-center justify-center shrink-0">
+                                <Package className="w-4 h-4 md:w-7 md:h-7 text-gray-700" />
                             </div>
+
                             <div>
-                                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                                <h1 className="text-xl md:text-4xl font-bold text-gray-900 mb-1 md:mb-2">
                                     {packageInfo?.name}
                                 </h1>
-                                <p className="text-gray-600 flex items-center gap-2">
+                                <p className="text-gray-600 flex items-center gap-1 md:gap-2 text-sm md:text-base">
                                     <TestTube className="w-4 h-4" />
                                     {tests.length} {tests.length === 1 ? "test" : "tests"} included
                                 </p>
                             </div>
                         </div>
-                        <div className="text-left md:text-right">
-                            <p className="text-gray-500 text-xs uppercase tracking-wide mb-1 font-medium">Package Price</p>
-                            <span className="inline-block bg-gray-900 text-white font-bold px-6 py-3 rounded-lg text-2xl">
+
+                        <div className="w-full md:w-auto text-left md:text-right mt-2 md:mt-0">
+                            <p className="text-gray-500 text-[10px] md:text-xs uppercase tracking-wide mb-1 font-medium">
+                                Package Price
+                            </p>
+                            <span className="inline-block bg-gray-900 text-white font-bold px-5 py-2.5 md:px-6 md:py-3 rounded-lg md:text-2xl">
                                 ₹{packageInfo?.price}
                             </span>
                         </div>
+
                     </div>
                 </div>
+
 
                 {/* Section Header */}
                 <div className="mb-6">

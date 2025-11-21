@@ -28,7 +28,7 @@ const PackageGrid = ({ packages, onSelect }) => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-15"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-15"
         >
             {packages.map((pkg, index) => (
                 <motion.div
@@ -36,7 +36,7 @@ const PackageGrid = ({ packages, onSelect }) => {
                     variants={cardVariants}
                     className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden flex flex-col"
                 >
-                    <div className="p-5 grow w-full">
+                    <div className="p-5 grow flex flex-col w-full h-full">
                         <h3 className="text-xl font-bold mb-2 text-gray-800">
                             {pkg.name}
                         </h3>
@@ -61,9 +61,11 @@ const PackageGrid = ({ packages, onSelect }) => {
                                 {pkg.testMethod}
                             </p>
                         </div>
+
+                        {/* Button always sticks to bottom */}
                         <Button
                             onClick={() => onSelect(pkg)}
-                            className="text-sm text-red-600 font-bold flex items-center space-x-2 hover:underline"
+                            className="mt-auto text-sm text-red-600 font-bold flex items-center space-x-2 hover:underline"
                         >
                             <span>See Details</span>
                             <div className="bg-red-600 text-white rounded-full flex items-center justify-center">

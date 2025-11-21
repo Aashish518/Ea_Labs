@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,17 +30,19 @@ const typeIcons = {
 export default function Resources() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
   const [selectedResource, setSelectedResource] = useState(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  // ✅ Fetch all resources from backend
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   const { data: resources = [], isLoading } = useQuery({
     queryKey: ["resources"],
     queryFn: getAllResources,
   });
-  console.log(resources)
+   
 
   if (isLoading) {
     return (
@@ -49,6 +51,7 @@ export default function Resources() {
       </div>
     );
   }
+
 
   // ✅ Filter logic
   const filtered = resources
@@ -122,7 +125,7 @@ export default function Resources() {
 
   return (
     <section className="bg-white min-h-screen relative">
-      
+
       {/* ✅ Success Download Popup */}
       <AnimatePresence>
         {showSuccessPopup && (
@@ -177,7 +180,7 @@ export default function Resources() {
                         : "/placeholder.png"
                     }
                     alt={selectedResource.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full"
                   />
                   {/* Type Badge */}
                   <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg shadow-md">
@@ -303,26 +306,23 @@ export default function Resources() {
           </div>
 
           {/* Category Filters */}
-          <div>
-            <div className="flex items-center justify-center gap-2 mb-4 lg:hidden">
-              <Button
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-200 transition"
-              >
-                <Filter className="w-4 h-4" />
-                Filters
-              </Button>
-            </div>
-
+          <div className="w-full mt-6">
             <div
-              className={`flex overflow-x-auto pb-3 justify-center gap-3 ${showFilters ? "block" : "hidden lg:flex"
-                }`}
+              className="
+      flex gap-3 
+      overflow-x-auto 
+      no-scrollbar
+      py-3
+      px-4
+      justify-start
+      sm:justify-center
+    "
             >
               {categories.map((cat) => (
                 <Button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2 text-sm rounded-full border transition font-semibold ${activeCategory === cat
+                  className={`px-5 py-2 text-sm whitespace-nowrap rounded-full border transition font-semibold ${activeCategory === cat
                       ? "bg-blue-600 text-white border-blue-600"
                       : "bg-white border-gray-300 text-gray-700 hover:bg-blue-50"
                     }`}
@@ -332,6 +332,7 @@ export default function Resources() {
               ))}
             </div>
           </div>
+
         </motion.div>
       </div>
 
@@ -358,7 +359,7 @@ export default function Resources() {
           ) : (
             <motion.div
               layout
-              className="grid grid-cols-1 sm:grid-cols-4 gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
             >
               {filtered.map((res, i) => {
                 const Icon = typeIcons[res.type];
@@ -369,10 +370,10 @@ export default function Resources() {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05, duration: 0.4 }}
-                    className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300"
+                    className="group bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300"
                   >
                     {/* Thumbnail */}
-                    <div className="relative w-full h-48 overflow-hidden bg-gray-100">
+                    <div className="relative w-full overflow-hidden bg-gray-100">
                       <Image
                         src={
                           res.thumbnail
@@ -380,20 +381,20 @@ export default function Resources() {
                             : "/placeholder.png"
                         }
                         alt={res.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full transition-transform duration-700 group-hover:scale-105"
                       />
 
                       {/* Type Badge */}
-                      <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg shadow-md border border-gray-200">
-                        {Icon && <Icon className="w-4 h-4 text-blue-600" />}
-                        <span className="text-xs font-semibold text-gray-700 uppercase">
+                      <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-red-600 rounded-lg shadow-md border border-gray-200">
+                        {Icon && <Icon className="w-4 h-4 text-white" />}
+                        <span className="text-xs font-semibold text-white uppercase">
                           {res.type}
                         </span>
                       </div>
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 flex flex-col h-72">
+                    <div className="p-4 flex flex-col">
                       <div className="flex items-center gap-3 text-sm text-gray-500 mb-3">
                         <span>
                           Posted : {new Date(res.createdAt).toLocaleDateString("en-GB", {
@@ -413,7 +414,7 @@ export default function Resources() {
 
                       <Button
                         onClick={() => setSelectedResource(res)}
-                        className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all"
+                        className="inline-flex items-center gap-2 text-red-500 font-semibold hover:gap-3 transition-all"
                       >
                         View More →
                       </Button>

@@ -42,7 +42,7 @@ export default function Resources() {
     queryKey: ["resources"],
     queryFn: getAllResources,
   });
-   
+
 
   if (isLoading) {
     return (
@@ -323,8 +323,8 @@ export default function Resources() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={`px-5 py-2 text-sm whitespace-nowrap rounded-full border transition font-semibold ${activeCategory === cat
-                      ? "bg-blue-600 text-white border-blue-600"
-                      : "bg-white border-gray-300 text-gray-700 hover:bg-blue-50"
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white border-gray-300 text-gray-700 hover:bg-blue-50"
                     }`}
                 >
                   {cat}
@@ -370,53 +370,62 @@ export default function Resources() {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05, duration: 0.4 }}
-                    className="group bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300"
+                    // Use a flex-col layout to ensure description and button are at the bottom
+                    className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col relative"
                   >
-                    {/* Thumbnail */}
-                    <div className="relative w-full overflow-hidden bg-gray-100">
+
+                    {/* 1. Thumbnail - Now at the top, full width, with aspect ratio */}
+                    <div className="aspect-video overflow-hidden bg-gray-100">
                       <Image
                         src={
+
                           res.thumbnail
+
                             ? `${import.meta.env.VITE_BACK_URL}${res.thumbnail}`
+
                             : "/placeholder.png"
+
                         }
                         alt={res.title}
-                        className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+                        // object-cover ensures the image fills the container without distortion
+                        className="w-full h-full group-hover:scale-105 transition-transform duration-500"
                       />
-
-                      {/* Type Badge */}
-                      <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-red-600 rounded-lg shadow-md border border-gray-200">
-                        {Icon && <Icon className="w-4 h-4 text-white" />}
-                        <span className="text-xs font-semibold text-white uppercase">
-                          {res.type}
-                        </span>
-                      </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="p-4 flex flex-col">
-                      <div className="flex items-center gap-3 text-sm text-gray-500 mb-3">
-                        <span>
-                          Posted : {new Date(res.createdAt).toLocaleDateString("en-GB", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                          })}
-                        </span>
-                      </div>
+                    {/* 2. Type Badge - Absolute position in the corner for prominence */}
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-medium rounded-full absolute top-4 right-4 z-10 shadow-sm">
+                      {Icon && <Icon className="w-3 h-3" />}
+                      {res.type}
+                    </div>
 
-                      <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
+                    {/* Content Wrapper */}
+                    <div className="p-5 flex flex-col flex-grow">
+                      {/* 3. Title */}
+                      <h3 className="text-xl font-extrabold text-gray-900 line-clamp-2 mb-2">
                         {res.title}
                       </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed mb-4 grow line-clamp-3">
+
+                      {/* 4. Meta Info - Lighter and clearer positioning */}
+                      <div className="text-xs text-gray-400 mb-3">
+                        Posted:{" "}
+                        {new Date(res.createdAt).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </div>
+
+                      {/* 5. Description */}
+                      <p className="text-gray-600 text-sm leading-relaxed line-clamp-3 flex-grow">
                         {res.description}
                       </p>
 
+                      {/* 6. Button - Clear call to action at the bottom */}
                       <Button
                         onClick={() => setSelectedResource(res)}
-                        className="inline-flex items-center gap-2 text-red-500 font-semibold hover:gap-3 transition-all"
+                        className="mt-4 inline-flex items-center gap-2 text-indigo-600 font-semibold hover:text-indigo-800 transition-colors"
                       >
-                        View More →
+                        View Resource →
                       </Button>
                     </div>
                   </motion.div>

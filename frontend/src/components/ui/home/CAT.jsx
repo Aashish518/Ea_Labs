@@ -47,7 +47,7 @@ const CTA = () => {
                             onClick={handleClick}
                             className="bg-[#AA1626] text-white font-bold py-3 px-8 rounded-full hover:bg-gray-100 hover:text-[#AA1626] transition duration-300 whitespace-nowrap"
                         >
-                            Book a test
+                            Contact Us
                         </Button>
                     </motion.div>
 

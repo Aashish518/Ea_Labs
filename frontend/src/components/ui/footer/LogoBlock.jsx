@@ -7,10 +7,10 @@ const LogoBlock = () => (
             <Image
                 src={logoImg}
                 alt="EA Lab Logo"
-                className="h-10 w-auto"
+                className="h-15 w-auto"
             />
         </div>
-        <p className="text-gray-400 text-sm">
+        <p className="text-gray-400 text-md">
             108, Westface, Hebatpur Rd, <br />
             near Baghban Party Plot, Thaltej, <br />
             Ahmedabad, Gujarat 380059

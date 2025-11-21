@@ -10,14 +10,14 @@ const BottomBar = () => (
 
     {/* Links – show first on mobile, right side on desktop */}
     <div className="flex flex-wrap gap-3 md:gap-4 justify-center md:order-2">
-      <a href="#" className="hover:text-white transition">Privacy Policy</a>
-      <a href="#" className="hover:text-white transition">User Policy</a>
-      <a href="#" className="hover:text-white transition">Terms &amp; Condition</a>
+      <a href="/privacypolicy" className="hover:text-white transition">Privacy Policy</a>
+      <a href="/userpolicy" className="hover:text-white transition">User Policy</a>
+      <a href="/termsandconditions" className="hover:text-white transition">Terms &amp; Condition</a>
     </div>
 
     {/* Copyright – second on mobile, left on desktop */}
     <p className="text-center md:text-left md:order-1 leading-tight">
-      © 2024 EA Labs. All rights reserved.
+      © 2025 EA Labs. All rights reserved.
       <br />
       Developed by Antinoob Solutions
     </p>

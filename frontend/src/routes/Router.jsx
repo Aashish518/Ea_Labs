@@ -7,6 +7,9 @@ import ContactUs from "../pages/ContactUs";
 import PackageTestDetail from "../pages/PackageTestDetail";
 import AboutUs from "../pages/AboutUs";
 import Resources from "../pages/Resources";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
+import UserPolicy from "../pages/UserPolicy";
+import TermsAndConditions from "../pages/TermsAndConditions";
 
 const router = createBrowserRouter([
     {
@@ -19,9 +22,13 @@ const router = createBrowserRouter([
             { path: "/contactus", element: <ContactUs /> },
             { path: "/packagetestdetail/:id", element: <PackageTestDetail /> },
             { path: "/aboutus", element: <AboutUs /> },
-            { path: "/resources", element: <Resources /> }
+            { path: "/resources", element: <Resources /> },
+            { path: "/privacypolicy", element: <PrivacyPolicy /> },
+            { path: "/userpolicy", element: <UserPolicy /> },
+            { path: "/termsandconditions", element: <TermsAndConditions /> }
         ],
     },
+
 ]);
 
 const Router = () => {

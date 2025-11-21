@@ -14,25 +14,25 @@ const features = [
     icon: <Icon path={QualityIcon} className="w-16 h-16 text-white" />,
     title: 'Quality',
     description: 'Stringent multi-level QC and EQA programs ensure every result is accurate and dependable.',
-    gradient: 'from-purple-500 to-indigo-600',
+    gradient: 'from-[#AA1626] to-red-600',
   },
   {
     icon: <Icon path={TimeIcon} className="w-16 h-16 text-white" />,
     title: 'On-Time Services',
     description: 'From sample collection to reporting, we’re committed to punctuality.',
-    gradient: 'from-blue-500 to-teal-600',
+    gradient: 'from-[#AA1626] to-red-600',
   },
   {
     icon: <Icon path={ConvenienceIcon} className="w-16 h-16 text-white" />,
     title: 'Convenience',
     description: 'Opt for home sample collection or walk into any of our centres.',
-    gradient: 'from-green-500 to-emerald-600',
+    gradient: 'from-[#AA1626] to-red-600',
   },
   {
     icon: <Icon path={PhoneIcon} className="w-16 h-16 text-white" />,
     title: 'Expert Assistance',
     description: 'Get clarity beyond the report with on-demand result explanations and doctor consultation (on request).',
-    gradient: 'from-slate-500 to-gray-600',
+    gradient: 'from-[#AA1626] to-red-600',
   },
 ];
 

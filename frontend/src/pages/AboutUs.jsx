@@ -37,12 +37,12 @@ const AboutUs = () => {
             </div>
         );
 
-    if (!steps.length)
-        return (
-            <div className="flex justify-center items-center py-20 text-gray-500">
-                No About Us data found.
-            </div>
-        );
+    // if (!steps.length)
+    //     return (
+    //         <div className="flex justify-center items-center py-20 text-gray-500">
+    //             No About Us data found.
+    //         </div>
+    //     );
 
     return (
         <section className="bg-gray-50">
@@ -77,7 +77,7 @@ const AboutUs = () => {
                                 <img
                                     src={`${import.meta.env.VITE_BACK_URL}/uploads/1762516502581.jpg`}
                                     alt="Our Team"
-                                    className="w-full max-w-md h-auto rounded-2xl object-cover"
+                                    className="w-full h-[400px] max-w-md rounded-2xl"
                                 />
                             </div>
                         </div>
@@ -122,101 +122,111 @@ const AboutUs = () => {
                         </div>
                     </div>
                 </section>
+                {!steps || steps.length === 0 ? (
+    <div className="flex justify-center items-center py-20 text-gray-500">
+        No About Us data found.
+    </div>
+) : (
+    <>
+        {/* MAIN ABOUT UI */}
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:px-20 px-4">
+            {/* Left Image */}
+            <div className="w-full md:w-1/2">
+                <AnimatePresence mode="wait">
+                    <motion.img
+                        key={steps[activeStep]?.image}
+                        src={`${import.meta.env.VITE_BACK_URL}/${steps[activeStep]?.image}`}
+                        alt={steps[activeStep]?.title}
+                        className="w-auto h-auto sm:h-120 sm:w-200 rounded-xl shadow-md"
+                        initial={{ opacity: 0, x: -40 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 40 }}
+                        transition={{ duration: 0.4 }}
+                    />
+                </AnimatePresence>
+            </div>
 
-                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:px-20 px-4">
-                    {/* Left Image */}
-                    <div className="w-full md:w-1/2">
-                        <AnimatePresence mode="wait">
-                            <motion.img
-                                key={steps[activeStep]?.image}
-                                src={`${import.meta.env.VITE_BACK_URL}/${steps[activeStep]?.image}`}
-                                alt={steps[activeStep]?.title}
-                                className="w-auto h-auto sm:h-120 sm:w-200 rounded-xl shadow-md"
-                                initial={{ opacity: 0, x: -40 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: 40 }}
-                                transition={{ duration: 0.4 }}
-                            />
-                        </AnimatePresence>
-                    </div>
+            {/* Right Text */}
+            <div className="w-full md:w-1/2">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={steps[activeStep]?._id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.4 }}
+                    >
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center md:text-left">
+                            {steps[activeStep]?.title}
+                        </h2>
 
-                    {/* Right Text */}
-                    <div className="w-full md:w-1/2">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={steps[activeStep]?.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.4 }}
+                        <p className="wrap-break-word whitespace-normal leading-relaxed text-base md:text-lg">
+                            {steps[activeStep]?.description}
+                        </p>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+        </div>
+
+        {/* Timeline */}
+        <div className="relative mt-12 md:mt-8 mb-15 px-4">
+            <div className="overflow-x-auto md:overflow-visible md:px-15 scrollbar-hide">
+                <div className="relative min-w-max md:min-w-0 py-12">
+                    
+                    {/* line */}
+                    <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-300 -translate-y-1/2 z-0"></div>
+
+                    {/* Steps */}
+                    <div className="flex gap-16 md:justify-between relative z-10 px-4">
+                        {steps.map((step, index) => (
+                            <div
+                                key={step._id}
+                                className="flex flex-col items-center cursor-pointer group relative shrink-0"
+                                onClick={() => setActiveStep(index)}
                             >
-                                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center md:text-left">
-                                    {steps[activeStep]?.title}
-                                </h2>
-
-                                <p className="wrap-break-word whitespace-normal leading-relaxed text-base md:text-lg">
-                                    {steps[activeStep]?.description}
-                                </p>
-
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-
-                </div>
-
-                {/* Bottom Timeline */}
-                <div className="relative mt-12 md:mt-8 mb-15 px-4">
-                    {/* Scrollable container for mobile */}
-                    <div className="overflow-x-auto md:overflow-visible md:px-15 scrollbar-hide">
-                        <div className="relative min-w-max md:min-w-0 py-12">
-                            {/* Line */}
-                            <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-300 -translate-y-1/2 z-0"></div>
-
-                            {/* Steps */}
-                            <div className="flex gap-16 md:justify-between relative z-10 px-4">
-                                {steps.map((step, index) => (
-                                    <div
-                                        key={step._id}
-                                        className="flex flex-col items-center cursor-pointer group relative shrink-0"
-                                        onClick={() => setActiveStep(index)}
+                                {/* Title top for odd */}
+                                {index % 2 !== 0 && (
+                                    <span
+                                        className={`text-xl md:text-base font-medium absolute -top-10 md:-top-8 text-center whitespace-nowrap ${
+                                            activeStep === index
+                                                ? "text-blue-600"
+                                                : "text-gray-500 group-hover:text-blue-300"
+                                        }`}
                                     >
-                                        {/* Title ABOVE for odd indices */}
-                                        {index % 2 !== 0 && (
-                                            <span
-                                                className={`text-xl md:text-base font-medium absolute -top-10 md:-top-8 text-center whitespace-nowrap ${activeStep === index
-                                                    ? "text-blue-600"
-                                                    : "text-gray-500 group-hover:text-blue-300"
-                                                    }`}
-                                            >
-                                                {step.title}
-                                            </span>
-                                        )}
+                                        {step.title}
+                                    </span>
+                                )}
 
-                                        {/* Dot */}
-                                        <div
-                                            className={`w-6 h-6 rounded-full border-4 transition-all duration-300 ${activeStep === index
-                                                ? "bg-blue-200 border-blue-600 scale-110"
-                                                : "bg-white border-gray-400 group-hover:border-blue-300"
-                                                }`}
-                                        ></div>
+                                {/* Dot */}
+                                <div
+                                    className={`w-6 h-6 rounded-full border-4 transition-all duration-300 ${
+                                        activeStep === index
+                                            ? "bg-blue-200 border-blue-600 scale-110"
+                                            : "bg-white border-gray-400 group-hover:border-blue-300"
+                                    }`}
+                                ></div>
 
-                                        {/* Title BELOW for even indices */}
-                                        {index % 2 === 0 && (
-                                            <span
-                                                className={`text-xl md:text-base font-medium absolute top-10 md:top-8 text-center whitespace-nowrap ${activeStep === index
-                                                    ? "text-blue-600"
-                                                    : "text-gray-500 group-hover:text-blue-300"
-                                                    }`}
-                                            >
-                                                {step.title}
-                                            </span>
-                                        )}
-                                    </div>
-                                ))}
+                                {/* Title bottom for even */}
+                                {index % 2 === 0 && (
+                                    <span
+                                        className={`text-xl md:text-base font-medium absolute top-10 md:top-8 text-center whitespace-nowrap ${
+                                            activeStep === index
+                                                ? "text-blue-600"
+                                                : "text-gray-500 group-hover:text-blue-300"
+                                        }`}
+                                    >
+                                        {step.title}
+                                    </span>
+                                )}
                             </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
+            </div>
+        </div>
+    </>
+)}
+
             </div>
         </section>
     );
